@@ -22,6 +22,7 @@ public class Interfaz extends JFrame {
 	private JTextField textLado3;
 	private JLabel labelResultado;
 	private boolean lado1ok = false, lado2ok = false, lado3ok = false;
+	private Triangulo triangulo = new Triangulo();
 
 	public static void main(String[] args) {
 		Interfaz frame = new Interfaz();
@@ -99,10 +100,7 @@ public class Interfaz extends JFrame {
 	}
 
 	public boolean validarEntrada(String cadena) {
-		
-		
 		cadena = cadena.replace(',', '.');
-
 		if (cadena.matches("\\d+(\\.\\d+)?") && Double.valueOf(cadena) != 0)
 			return true;
 
@@ -116,32 +114,21 @@ public class Interfaz extends JFrame {
 			lado1 = Double.valueOf(textLado1.getText().replace(',', '.'));
 			lado2 = Double.valueOf(textLado2.getText().replace(',', '.'));
 			lado3 = Double.valueOf(textLado3.getText().replace(',', '.'));
-
+			triangulo.setLado1(lado1);
+			triangulo.setLado2(lado2);
+			triangulo.setLado3(lado3);
 			// Es triangulo
-			if (lado1 + lado2 > lado3 && lado1 + lado3 > lado2 && lado2 + lado3 > lado1) {
-
+			if (triangulo.isTriangulo()) {
 				labelResultado.setForeground(Color.GREEN);
-
-				if (lado1 == lado2) {
-					if (lado1 == lado3) {
-						labelResultado.setText("Es un triangulo equilatero");						
-					} else {
-						labelResultado.setText("Es un triangulo isosceles");
-					}
-				} else if (lado1 == lado3 || lado2 == lado3) {
-					labelResultado.setText("Es un triangulo isosceles");					
-				} else {
-					labelResultado.setText("Es un triangulo escaleno");
-				}
-			} 
-			
+				labelResultado.setText(triangulo.type());
+			}
 			else {
 				labelResultado.setForeground(Color.RED);
 				labelResultado.setText("La suma de dos lados debe ser mayor al tercero");
 			}
 		} else {
 			labelResultado.setForeground(Color.RED);
-			labelResultado.setText("Error, alguno de los lados es nulo o menor que cero");			
+			labelResultado.setText("Error, alguno de los lados es nulo o menor que cero");
 		}
 	}
 }
