@@ -11,11 +11,14 @@ import com.toedter.calendar.JDateChooser;
 
 import data.PacienteRepository;
 import entidades.Paciente;
+import utilities.Utils;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class DatosPaciente {
 
@@ -61,6 +64,12 @@ public class DatosPaciente {
 		frame.getContentPane().add(lblNombrePaciente);
 
 		textNombre = new JTextField();
+		textNombre.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				Utils.esTextoValido(textNombre.getText());
+			}
+		});
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textNombre.setBounds(267, 83, 200, 32);
 		frame.getContentPane().add(textNombre);
@@ -71,11 +80,11 @@ public class DatosPaciente {
 			public void actionPerformed(ActionEvent e) {
 				Paciente paciente = new Paciente(textDNI.getText(), dateIngreso.getCalendar(), textNombre.getText(),
 						textTelefono.getText(), textDireccion.getText(), comboTipoSangre.getSelectedItem().toString());
-				if (paciente.validaCampos()) {
+				if (esDatosCompletos()) {
 					pacienteRepo.guardarPaciente(paciente);
 					JOptionPane.showMessageDialog(null, "Se ha ingresado el paciente correctamente.",
 							"Acción Realizada", JOptionPane.INFORMATION_MESSAGE);
-					cancelar();
+					limpiarCampos();
 				} else {
 					JOptionPane.showMessageDialog(null, "Hay campos vacios. Procure llenar los campos.", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -105,6 +114,13 @@ public class DatosPaciente {
 		textDNI.setColumns(10);
 		textDNI.setBounds(267, 131, 200, 32);
 		frame.getContentPane().add(textDNI);
+		
+		textDNI.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				Utils.esNumeroValido(textDNI.getText());
+			}
+		});
 
 		JLabel lblTelefonoPaciente = new JLabel("Telefono Paciente");
 		lblTelefonoPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -142,6 +158,13 @@ public class DatosPaciente {
 		textDireccion.setColumns(10);
 		textDireccion.setBounds(267, 321, 200, 32);
 		frame.getContentPane().add(textDireccion);
+		
+		textDireccion.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				Utils.esTextoValido(textDNI.getText());
+			}
+		});
 
 		dateIngreso = new JDateChooser();
 		dateIngreso.setBounds(267, 227, 200, 31);
@@ -157,12 +180,18 @@ public class DatosPaciente {
 		frame.getContentPane().add(comboTipoSangre);
 	}
 
-	private void cancelar() {
+	private void limpiarCampos() {
 		textNombre.setText("");
 		textDNI.setText("");
 		textTelefono.setText("");
 		textDireccion.setText("");
-
 	}
 
+	private boolean esDatosCompletos() {
+		if (textNombre.getText().length() != 0 && textDNI.getText().length() != 0
+				&& textTelefono.getText().length() != 0 && textDireccion.getText().length() != 0) {
+			return true;
+		}
+		return false;
+	}
 }

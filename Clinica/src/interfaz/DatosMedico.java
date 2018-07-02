@@ -9,10 +9,13 @@ import javax.swing.JTextField;
 
 import data.MedicoRepository;
 import entidades.Medico;
+import utilities.Utils;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class DatosMedico {
 
@@ -22,11 +25,13 @@ public class DatosMedico {
 	private JTextField textTelefono;
 	private JTextField textMatricula;
 	private MedicoRepository medicoRepo;
+	private MenuIngresoPacientes menu;
 
 	/**
 	 * Create the application.
 	 */
-	public DatosMedico() {
+	public DatosMedico(MenuIngresoPacientes menu) {
+		this.menu = menu;
 		initialize();
 	}
 
@@ -59,6 +64,12 @@ public class DatosMedico {
 		frame.getContentPane().add(lblEspecializacinDelMdico);
 
 		textNombre = new JTextField();
+		textNombre.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				Utils.esTextoValido(textNombre.getText());
+			}
+		});
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textNombre.setBounds(321, 128, 181, 30);
 		frame.getContentPane().add(textNombre);
@@ -70,15 +81,23 @@ public class DatosMedico {
 		frame.getContentPane().add(textEspecialidad);
 		textEspecialidad.setColumns(10);
 
+		textEspecialidad.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				Utils.esTextoValido(textEspecialidad.getText());
+			}
+		});
+
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
 				Medico medico = new Medico(textEspecialidad.getText(), textNombre.getText(), textTelefono.getText(),
 						textMatricula.getText());
-				if (medico.esDatosCompletos()) {
+				if (esDatosCompletos()) {
 					medicoRepo.guardarMedico(medico);
 					JOptionPane.showMessageDialog(null, "Se ha ingresado al médico correctamente.", "Acción Realizada",
 							JOptionPane.INFORMATION_MESSAGE);
+					limpiarCampos();
 				} else {
 					JOptionPane.showMessageDialog(null, "Hay campos vacios. Procure llenar los campos.", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -90,6 +109,12 @@ public class DatosMedico {
 		frame.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				menu.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnCancelar.setBounds(361, 412, 115, 36);
 		frame.getContentPane().add(btnCancelar);
@@ -104,16 +129,38 @@ public class DatosMedico {
 		textMatricula.setColumns(10);
 		textMatricula.setBounds(321, 204, 181, 30);
 		frame.getContentPane().add(textMatricula);
-		
+
+		textMatricula.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				Utils.esNumeroValido(textMatricula.getText());
+			}
+		});
+
 		JLabel lblTelefonoMdico = new JLabel("Tel\u00E9fono M\u00E9dico");
 		lblTelefonoMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTelefonoMdico.setBounds(48, 263, 241, 30);
 		frame.getContentPane().add(lblTelefonoMdico);
-		
+
 		textTelefono = new JTextField();
 		textTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textTelefono.setColumns(10);
 		textTelefono.setBounds(321, 263, 181, 30);
 		frame.getContentPane().add(textTelefono);
+	}
+
+	private void limpiarCampos() {
+		textNombre.setText("");
+		textEspecialidad.setText("");
+		textTelefono.setText("");
+		textMatricula.setText("");
+	}
+
+	private boolean esDatosCompletos() {
+		if (textNombre.getText().length() != 0 && textEspecialidad.getText().length() != 0
+				&& textTelefono.getText().length() != 0 && textMatricula.getText().length() != 0) {
+			return true;
+		}
+		return false;
 	}
 }

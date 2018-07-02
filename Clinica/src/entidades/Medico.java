@@ -8,7 +8,7 @@ public class Medico {
 	private String telefono;
 	private String especialidad;
 
-	public Medico(String matricula, String nombre, String telefono, String especialidad) {
+	public Medico(String especialidad, String nombre, String telefono, String matricula) {
 		this.matricula = matricula;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -53,10 +53,6 @@ public class Medico {
 
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
-	}
-
-	public boolean esDatosCompletos() {
-		return !this.nombre.isEmpty() || !this.matricula.isEmpty() || !this.especialidad.isEmpty();
 	}
 
 }

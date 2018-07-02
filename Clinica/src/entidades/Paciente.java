@@ -88,13 +88,4 @@ public class Paciente {
 	public void setTipoSangre(String tipoSangre) {
 		this.tipoSangre = tipoSangre;
 	}
-
-	public boolean validaCampos() {
-		dia = Integer.toString(this.fechaIngreso.get(java.util.Calendar.DATE));
-		mes = Integer.toString(this.fechaIngreso.get(java.util.Calendar.MONTH) + 1);
-		anio = Integer.toString(this.fechaIngreso.get(java.util.Calendar.YEAR));
-
-		return !this.nombre.isEmpty() || !this.dni.isEmpty() || !this.telefono.isEmpty() || !this.tipoSangre.isEmpty()
-				|| !this.direccion.isEmpty() || !dia.isEmpty() || !mes.isEmpty() || !anio.isEmpty();
-	}
 }

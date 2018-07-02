@@ -50,7 +50,7 @@ public class MenuIngresoPacientes {
 		JButton btnDatosDelMdico = new JButton("Datos del M\u00E9dico");
 		btnDatosDelMdico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosMedico datosMedico = new DatosMedico();
+				DatosMedico datosMedico = new DatosMedico(menu);
 				frame.setVisible(false);
 			}
 		});
