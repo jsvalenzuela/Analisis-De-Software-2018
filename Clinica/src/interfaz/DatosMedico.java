@@ -12,19 +12,15 @@ import entidades.Medico;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class DatosMedico {
 
 	private JFrame frame;
 	private JTextField textNombre;
-	private JTextField textMatricula;
-	private JTextField textTelefono;
 	private JTextField textEspecialidad;
+	private JTextField textTelefono;
+	private JTextField textMatricula;
 	private MedicoRepository medicoRepo;
 
 	/**
@@ -39,6 +35,7 @@ public class DatosMedico {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		medicoRepo = new MedicoRepository();
 		frame.setBounds(100, 100, 640, 532);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -58,7 +55,7 @@ public class DatosMedico {
 
 		JLabel lblEspecializacinDelMdico = new JLabel("Especialidad del M\u00E9dico");
 		lblEspecializacinDelMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblEspecializacinDelMdico.setBounds(50, 271, 241, 30);
+		lblEspecializacinDelMdico.setBounds(48, 325, 241, 30);
 		frame.getContentPane().add(lblEspecializacinDelMdico);
 
 		textNombre = new JTextField();
@@ -67,19 +64,19 @@ public class DatosMedico {
 		frame.getContentPane().add(textNombre);
 		textNombre.setColumns(10);
 
-		textMatricula = new JTextField();
-		textMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textMatricula.setBounds(321, 273, 181, 30);
-		frame.getContentPane().add(textMatricula);
-		textMatricula.setColumns(10);
+		textEspecialidad = new JTextField();
+		textEspecialidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textEspecialidad.setBounds(319, 327, 181, 30);
+		frame.getContentPane().add(textEspecialidad);
+		textEspecialidad.setColumns(10);
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Medico medico = new Medico(textMatricula.getText(), textNombre.getText(), textTelefono.getText(),
-						textEspecialidad.getText());
+			public void actionPerformed(ActionEvent e) {				
+				Medico medico = new Medico(textEspecialidad.getText(), textNombre.getText(), textTelefono.getText(),
+						textMatricula.getText());
 				if (medico.esDatosCompletos()) {
-					medicoRepo.insertarMedico(medico);
+					medicoRepo.guardarMedico(medico);
 					JOptionPane.showMessageDialog(null, "Se ha ingresado al médico correctamente.", "Acción Realizada",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
@@ -89,12 +86,12 @@ public class DatosMedico {
 			}
 		});
 		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnGuardar.setBounds(67, 371, 115, 36);
+		btnGuardar.setBounds(68, 412, 115, 36);
 		frame.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnCancelar.setBounds(360, 371, 115, 36);
+		btnCancelar.setBounds(361, 412, 115, 36);
 		frame.getContentPane().add(btnCancelar);
 
 		JLabel lblMatrculaDelMdico = new JLabel("Matr\u00EDcula del M\u00E9dico");
@@ -102,10 +99,21 @@ public class DatosMedico {
 		lblMatrculaDelMdico.setBounds(50, 202, 198, 30);
 		frame.getContentPane().add(lblMatrculaDelMdico);
 
-		textEspecialidad = new JTextField();
-		textEspecialidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textEspecialidad.setColumns(10);
-		textEspecialidad.setBounds(321, 204, 181, 30);
-		frame.getContentPane().add(textEspecialidad);
+		textMatricula = new JTextField();
+		textMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textMatricula.setColumns(10);
+		textMatricula.setBounds(321, 204, 181, 30);
+		frame.getContentPane().add(textMatricula);
+		
+		JLabel lblTelefonoMdico = new JLabel("Tel\u00E9fono M\u00E9dico");
+		lblTelefonoMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTelefonoMdico.setBounds(48, 263, 241, 30);
+		frame.getContentPane().add(lblTelefonoMdico);
+		
+		textTelefono = new JTextField();
+		textTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textTelefono.setColumns(10);
+		textTelefono.setBounds(321, 263, 181, 30);
+		frame.getContentPane().add(textTelefono);
 	}
 }

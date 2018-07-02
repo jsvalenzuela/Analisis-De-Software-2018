@@ -10,10 +10,18 @@ import java.awt.event.ActionEvent;
 public class MenuPrincipal {
 
 	private JFrame frame;
+	private Login login;
+	private MenuPrincipal menu;
+	
 
 	/**
 	 * Create the application.
 	 */
+	public MenuPrincipal(Login login) {
+		this.login = login;
+		initialize();
+	}
+
 	public MenuPrincipal() {
 		initialize();
 	}
@@ -22,6 +30,7 @@ public class MenuPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		this.menu= this;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 640, 580);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,9 +69,8 @@ public class MenuPrincipal {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login login = new Login();
-				login.setVisible(true);
 				frame.setVisible(false);
+				login.setVisible(true);
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -72,7 +80,7 @@ public class MenuPrincipal {
 		JButton btnRegistro = new JButton("Registro de Usuario");
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Registro registro = new Registro();
+				Registro registro = new Registro(menu);
 				frame.setVisible(false);
 			}
 		});

@@ -9,10 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import data.UsuarioRepository;
 import entidades.Usuario;
@@ -29,8 +27,10 @@ public class Registro extends JFrame {
 	private UsuarioRepository usuarioRepo;
 	private JButton btnCancelar;
 	private Usuario usuario;
+	private MenuPrincipal menu;
 
-	public Registro() {
+	public Registro(MenuPrincipal menu) {
+		this.menu = menu;
 		usuario = new Usuario();
 		usuarioRepo = new UsuarioRepository();
 

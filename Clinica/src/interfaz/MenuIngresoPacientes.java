@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 public class MenuIngresoPacientes {
 
 	private JFrame frame;
-
+	private MenuIngresoPacientes menu;
 	/**
 	 * Create the application.
 	 */
@@ -22,6 +22,7 @@ public class MenuIngresoPacientes {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		this.menu = this;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 640, 620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +40,7 @@ public class MenuIngresoPacientes {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosPaciente datosPaciente = new DatosPaciente();
+				DatosPaciente datosPaciente = new DatosPaciente(menu);
 				frame.setVisible(false);
 			}
 		});
@@ -79,6 +80,10 @@ public class MenuIngresoPacientes {
 		btnAtrs.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAtrs.setBounds(189, 316, 216, 50);
 		frame.getContentPane().add(btnAtrs);
+	}
+	
+	public void setVisible(boolean visible) {
+		this.frame.setVisible(visible);
 	}
 
 }

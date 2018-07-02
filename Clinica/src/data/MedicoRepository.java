@@ -13,9 +13,10 @@ public class MedicoRepository {
 
 	public MedicoRepository() {
 		this.dbAccess = new DBAccess();
+		dbAccess.connect();
 	}
 
-	public boolean insertarMedico(Medico medico) {
+	public boolean guardarMedico(Medico medico) {
 
 		try {
 			// Query para insert en BD

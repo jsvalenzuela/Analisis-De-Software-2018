@@ -19,7 +19,7 @@ public class Paciente {
 	private String anio;
 
 	public Paciente(String dni, Calendar fechaIngreso, String nombre, String telefono, String direccion,
-			String tipoDeSangre) {
+			String tipoSangre) {
 		this.dni = dni;
 		this.fechaIngreso = fechaIngreso;
 		this.nombre = nombre;
@@ -94,7 +94,7 @@ public class Paciente {
 		mes = Integer.toString(this.fechaIngreso.get(java.util.Calendar.MONTH) + 1);
 		anio = Integer.toString(this.fechaIngreso.get(java.util.Calendar.YEAR));
 
-		return !this.nombre.isEmpty() || !this.telefono.isEmpty() || !this.tipoSangre.isEmpty()
+		return !this.nombre.isEmpty() || !this.dni.isEmpty() || !this.telefono.isEmpty() || !this.tipoSangre.isEmpty()
 				|| !this.direccion.isEmpty() || !dia.isEmpty() || !mes.isEmpty() || !anio.isEmpty();
 	}
 }

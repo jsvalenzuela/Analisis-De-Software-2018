@@ -155,8 +155,8 @@ public class Login extends JFrame {
 		usuario.setNombreUsuario(txtUsuario.getText());
 		usuario.setPassword(tpContrasena.getText());
 		if (usuarioRepo.loguearUsuario(usuario)) {
-			MenuPrincipal menu = new MenuPrincipal();
-			dispose();
+			MenuPrincipal menu = new MenuPrincipal(login);
+			this.setVisible(false);
 		} else {
 			verificarNombreUsuario();
 		}
