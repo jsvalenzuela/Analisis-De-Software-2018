@@ -4,7 +4,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-
 public final class Log {
 
 	private final static Logger log = Logger.getLogger(Log.class);

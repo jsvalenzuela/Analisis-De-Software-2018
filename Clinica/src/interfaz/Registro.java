@@ -20,7 +20,6 @@ import java.awt.Font;
 
 public class Registro extends JFrame {
 
-	private JPanel contentPane;
 	private JFrame frmRegistro;
 	private JTextField txtUsuario;
 	private JPasswordField txtPassword;
@@ -29,30 +28,31 @@ public class Registro extends JFrame {
 	private JButton btnRegistrar;
 	private UsuarioRepository usuarioRepo;
 	private JButton btnCancelar;
+	private Usuario usuario;
 
-	public Registro(final Usuario usuario) {
-
+	public Registro() {
+		usuario = new Usuario();
 		usuarioRepo = new UsuarioRepository();
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(null);
-		setContentPane(contentPane);
 
 		frmRegistro = new JFrame();
 		frmRegistro.setResizable(false);
-		frmRegistro.setTitle("Registro");
-		frmRegistro.setBounds(100, 100, 474, 249);
+		frmRegistro.setTitle("Sistema de Control de Pacientes - Clínica Nuevo Espiritu");
+		frmRegistro.setBounds(100, 100, 521, 266);
 		frmRegistro.getContentPane().setLayout(null);
 
+		JLabel lblRegistro = new JLabel("Registro");
+		lblRegistro.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblRegistro.setBounds(150, 22, 137, 31);
+		frmRegistro.getContentPane().add(lblRegistro);
+
 		lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblUsuario.setBounds(10, 64, 77, 14);
 		frmRegistro.getContentPane().add(lblUsuario);
 
 		lblPassword = new JLabel("Contrasena:");
-		lblPassword.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
-		lblPassword.setBounds(10, 89, 77, 14);
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPassword.setBounds(10, 96, 102, 14);
 		frmRegistro.getContentPane().add(lblPassword);
 
 		frmRegistro.addWindowListener(new WindowAdapter() {
@@ -63,29 +63,28 @@ public class Registro extends JFrame {
 		});
 
 		txtPassword = new JPasswordField();
-		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		txtPassword.setBounds(97, 89, 350, 20);
+		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtPassword.setBounds(122, 92, 350, 20);
 		frmRegistro.getContentPane().add(txtPassword);
 
 		txtUsuario = new JTextField();
-		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtUsuario.setColumns(10);
-		txtUsuario.setBounds(97, 61, 350, 20);
+		txtUsuario.setBounds(122, 64, 350, 20);
 		frmRegistro.getContentPane().add(txtUsuario);
 
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setFont(new Font("OCR A Extended", Font.PLAIN, 13));
+		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (camposCompletos()) {
 					usuario.setNombreUsuario(txtUsuario.getText().toUpperCase());
 					usuario.setPassword(txtPassword.getText());
 					registrar(usuario);
-					frmRegistro.dispose();
 				}
 			}
 		});
-		btnRegistrar.setBounds(96, 144, 115, 20);
+		btnRegistrar.setBounds(122, 143, 128, 31);
 		frmRegistro.getContentPane().add(btnRegistrar);
 
 		btnCancelar = new JButton("Cancelar");
@@ -94,14 +93,14 @@ public class Registro extends JFrame {
 				cancelar();
 			}
 		});
-		btnCancelar.setFont(new Font("OCR A Extended", Font.PLAIN, 13));
-		btnCancelar.setBounds(258, 144, 115, 20);
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCancelar.setBounds(283, 143, 128, 31);
 		frmRegistro.getContentPane().add(btnCancelar);
 		frmRegistro.setVisible(true);
 	}
 
 	private void registrar(Usuario user) {
-		if (!usuarioRepo.existeUsuario(user)) {
+		if (usuarioRepo.existeUsuario(user)) {
 			JOptionPane.showMessageDialog(null, "Nombre de usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			if (usuarioRepo.registrarUsuario(user)) {

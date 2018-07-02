@@ -1,23 +1,32 @@
 package entidades;
 
+import java.util.Calendar;
 import java.util.Date;
+
+import utilities.Utils;
 
 public class Paciente {
 
 	private int codigo;
-	private int dni;
-	private Date fechaIngreso;
+	private String dni;
+	private Calendar fechaIngreso;
 	private String nombre;
 	private String telefono;
 	private String direccion;
+	private String tipoSangre;
+	private String dia;
+	private String mes;
+	private String anio;
 
-	public Paciente(int codigo, int dni, Date fechaIngreso, String nombre, String telefono, String direccion) {
-		this.codigo = codigo;
+	public Paciente(String dni, Calendar fechaIngreso, String nombre, String telefono, String direccion,
+			String tipoDeSangre) {
 		this.dni = dni;
 		this.fechaIngreso = fechaIngreso;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.tipoSangre = tipoSangre;
+
 	}
 
 	public Paciente() {
@@ -32,20 +41,20 @@ public class Paciente {
 		this.codigo = codigo;
 	}
 
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
-	public Date getFechaIngreso() {
+	public Calendar getFechaIngreso() {
 		return fechaIngreso;
 	}
 
 	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+		this.fechaIngreso = Utils.toCalendar(fechaIngreso);
 	}
 
 	public String getNombre() {
@@ -70,5 +79,22 @@ public class Paciente {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public String getTipoSangre() {
+		return tipoSangre;
+	}
+
+	public void setTipoSangre(String tipoSangre) {
+		this.tipoSangre = tipoSangre;
+	}
+
+	public boolean validaCampos() {
+		dia = Integer.toString(this.fechaIngreso.get(java.util.Calendar.DATE));
+		mes = Integer.toString(this.fechaIngreso.get(java.util.Calendar.MONTH) + 1);
+		anio = Integer.toString(this.fechaIngreso.get(java.util.Calendar.YEAR));
+
+		return !this.nombre.isEmpty() || !this.telefono.isEmpty() || !this.tipoSangre.isEmpty()
+				|| !this.direccion.isEmpty() || !dia.isEmpty() || !mes.isEmpty() || !anio.isEmpty();
 	}
 }

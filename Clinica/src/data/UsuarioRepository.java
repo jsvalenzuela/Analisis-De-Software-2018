@@ -13,11 +13,13 @@ public class UsuarioRepository {
 
 	public UsuarioRepository() {
 		this.dbAccess = new DBAccess();
+		dbAccess.connect();
 	}
 
 	public boolean loguearUsuario(Usuario user) {
 		ResultSet result = null;
 		try {
+
 			PreparedStatement st = dbAccess.connect
 					.prepareStatement("select * from USUARIO where Usuario = ? AND Contrasena = ? ");
 			st.setString(1, user.getNombreUsuario().toUpperCase());
@@ -25,8 +27,12 @@ public class UsuarioRepository {
 			result = st.executeQuery();
 
 			if (result.next()) {
+				result.close();
+				st.close();
 				return true;
 			}
+			result.close();
+			st.close();
 			return false;
 
 		} catch (SQLException e) {
@@ -47,18 +53,15 @@ public class UsuarioRepository {
 
 				// 1) INSERTO EL USUARIO
 				PreparedStatement st = dbAccess.connect
-						.prepareStatement("insert into USUARIO (Usuario, Contrasena) values (?,?)");
-				st.setString(1, user.getNombreUsuario().toUpperCase());
-				st.setString(2, user.getPassword());
+						.prepareStatement("insert into USUARIO (Codigo,Usuario, Contrasena) values (?,?,?)");
+				st.setString(1, obtenerSiguienteCod());
+				st.setString(2, user.getNombreUsuario().toUpperCase());
+				st.setString(3, user.getPassword());
 				st.execute();
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs != null) {
-
-					// 2) OBTENGO SU ID
-					st = dbAccess.connect.prepareStatement("select Codigo from USUARIO where NOMBRE = ?");
-					st.setString(1, user.getNombreUsuario().toUpperCase());
-					result = st.executeQuery();
-					result.getInt("Codigo");
+					rs.close();
+					st.close();
 					return true;
 
 				}
@@ -70,16 +73,29 @@ public class UsuarioRepository {
 		}
 	}
 
+	private String obtenerSiguienteCod() throws SQLException {
+		PreparedStatement st = dbAccess.connect.prepareStatement("select count(*) as cant from USUARIO");
+		ResultSet result = st.executeQuery();
+		int cant = result.getInt("cant");
+		cant++;
+		result.close();
+		st.close();
+		return String.valueOf(cant);
+	}
+
 	public boolean existeUsuario(Usuario user) {
 		ResultSet result = null;
 		try {
 			PreparedStatement st = dbAccess.connect.prepareStatement("select * from USUARIO where Usuario = ? ");
 			st.setString(1, user.getNombreUsuario().toUpperCase());
 			result = st.executeQuery();
-
 			if (result.next()) {
+				st.close();
+				result.close();
 				return true;
 			}
+			st.close();
+			result.close();
 			return false;
 
 		} catch (SQLException e) {

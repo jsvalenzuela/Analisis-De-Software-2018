@@ -36,13 +36,17 @@ public class Login extends JFrame {
 	private Login login;
 	private Usuario usuario;
 	private UsuarioRepository usuarioRepo;
+	private JFrame frame;
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
-					frame.setVisible(true);
+					Login window = new Login();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					Log.getInstance().error("Error iniciar: " + e.getMessage());
 				}
@@ -60,57 +64,61 @@ public class Login extends JFrame {
 		});
 
 		this.usuario = new Usuario();
-		setTitle("Clinica - Login");
+		this.usuarioRepo = new UsuarioRepository();
+		setTitle("Sistema de Control de Pacientes - Clínica Nuevo Espiritu");
 		setLogin(this);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 504, 275);
+		setBounds(100, 100, 624, 346);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		lblUsuario = new JLabel("Usuario: ");
-		lblUsuario.setForeground(new Color(255, 255, 255));
-		lblUsuario.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
+		JLabel lblLogin = new JLabel("Login");
+		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblLogin.setBounds(150, 22, 87, 31);
+		contentPane.add(lblLogin);
 
-		lblUsuario.setBounds(7, 122, 96, 20);
+		lblUsuario = new JLabel("Usuario: ");
+		lblUsuario.setForeground(Color.BLACK);
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+
+		lblUsuario.setBounds(22, 122, 96, 20);
 		contentPane.add(lblUsuario);
 		lblContrasena = new JLabel("Contrase\u00F1a: ");
-		lblContrasena.setForeground(new Color(255, 255, 255));
-		lblContrasena.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
-		lblContrasena.setBounds(7, 153, 96, 20);
+		lblContrasena.setForeground(Color.BLACK);
+		lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblContrasena.setBounds(22, 153, 119, 20);
 		contentPane.add(lblContrasena);
 
 		txtUsuario = new JTextField();
-		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		txtUsuario.setBounds(107, 122, 353, 20);
+		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtUsuario.setBounds(150, 122, 353, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		tpContrasena = new JPasswordField();
-		tpContrasena.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		tpContrasena.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tpContrasena.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent key) {
 				if (key.getKeyChar() == key.VK_ENTER)
 					try {
 						if (camposCompletos()) {
-							usuario.setNombreUsuario(txtUsuario.getText());
-							usuario.setPassword(tpContrasena.getText());
-							dispose();
+							loguear();
 						}
 					} catch (Exception e) {
 						Log.getInstance().error("Error al validar contrasena " + e.getMessage());
 					}
 			}
 		});
-		tpContrasena.setBounds(107, 153, 353, 20);
+		tpContrasena.setBounds(150, 153, 353, 20);
 		contentPane.add(tpContrasena);
 
 		btnIngresar = new JButton("Ingresar");
-		btnIngresar.setFont(new Font("OCR A Extended", Font.PLAIN, 13));
-		btnIngresar.setBounds(107, 204, 120, 21);
+		btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnIngresar.setBounds(177, 202, 140, 33);
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (camposCompletos()) {
@@ -127,16 +135,10 @@ public class Login extends JFrame {
 				cancelar();
 			}
 		});
-		btnCancelar.setFont(new Font("OCR A Extended", Font.PLAIN, 13));
-		btnCancelar.setBounds(281, 204, 120, 21);
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCancelar.setBounds(363, 202, 140, 33);
 		contentPane.add(btnCancelar);
 
-		// JLabel lbllogo= new JLabel("");
-		// lbllogo.setHorizontalAlignment(SwingConstants.CENTER);
-		// lblNewLabel_1.setIcon(new
-		// ImageIcon(Login.class.getResource("/imagenes/logo.jpg")));
-		// lbllogo.setBounds(0, -23, 500, 534);
-		// contentPane.add(lbllogo);
 		visible(true);
 
 	}
@@ -148,11 +150,12 @@ public class Login extends JFrame {
 		JOptionPane.showMessageDialog(null, "Complete todos los campos", "Campo vacio", JOptionPane.WARNING_MESSAGE);
 		return false;
 	}
-	
+
 	private void loguear() {
 		usuario.setNombreUsuario(txtUsuario.getText());
 		usuario.setPassword(tpContrasena.getText());
 		if (usuarioRepo.loguearUsuario(usuario)) {
+			MenuPrincipal menu = new MenuPrincipal();
 			dispose();
 		} else {
 			verificarNombreUsuario();
@@ -160,10 +163,12 @@ public class Login extends JFrame {
 	}
 
 	private void verificarNombreUsuario() {
-		if(usuarioRepo.existeUsuario(usuario)) {
-			JOptionPane.showMessageDialog(null, "Error al loguearse", "Error nombre de usuario no existe", JOptionPane.ERROR_MESSAGE);	
-		}else {
-			JOptionPane.showMessageDialog(null, "Error al loguearse", "Error contraseña no válida", JOptionPane.ERROR_MESSAGE);
+		if (usuarioRepo.existeUsuario(usuario)) {
+			JOptionPane.showMessageDialog(null, "Error al loguearse", "Error nombre de usuario no existe",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "Error al loguearse", "Error contraseña no válida",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

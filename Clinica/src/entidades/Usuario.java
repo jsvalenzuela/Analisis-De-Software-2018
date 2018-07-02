@@ -34,7 +34,7 @@ public class Usuario {
 	public void setPassword(String password) {
 		hashPassword(password);
 	}
-	
+
 	private void hashPassword(String pas) {
 		String passwordToHash = pas;
 		String generatedPassword = null;
@@ -48,7 +48,7 @@ public class Usuario {
 			}
 			generatedPassword = sb.toString();
 		} catch (NoSuchAlgorithmException e) {
-			Log.getInstance().error("Error en hashPassword "+e.getMessage());
+			Log.getInstance().error("Error en hashPassword " + e.getMessage());
 		}
 		this.password = generatedPassword;
 	}

@@ -8,7 +8,7 @@ import utilities.Log;
 
 public class DBAccess {
 
-	private String bdd = "Clinica.db";
+	private String bdd = "ClinicaDB.db";
 	Connection connect;
 
 	public void connect() {
