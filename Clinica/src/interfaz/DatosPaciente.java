@@ -27,7 +27,6 @@ public class DatosPaciente {
 	private JTextField textDNI;
 	private JTextField textTelefono;
 	private JTextField textDireccion;
-	private JDateChooser dateIngreso;
 	private JComboBox<String> comboTipoSangre;
 	private PacienteRepository pacienteRepo;
 	private MenuIngresoPacientes menu;
@@ -60,7 +59,7 @@ public class DatosPaciente {
 
 		JLabel lblNombrePaciente = new JLabel("Nombre Paciente");
 		lblNombrePaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombrePaciente.setBounds(52, 76, 179, 42);
+		lblNombrePaciente.setBounds(52, 117, 179, 42);
 		frame.getContentPane().add(lblNombrePaciente);
 
 		textNombre = new JTextField();
@@ -71,14 +70,14 @@ public class DatosPaciente {
 			}
 		});
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textNombre.setBounds(267, 83, 200, 32);
+		textNombre.setBounds(267, 124, 200, 32);
 		frame.getContentPane().add(textNombre);
 		textNombre.setColumns(10);
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Paciente paciente = new Paciente(textDNI.getText(), dateIngreso.getCalendar(), textNombre.getText(),
+				Paciente paciente = new Paciente(textDNI.getText(), textNombre.getText(),
 						textTelefono.getText(), textDireccion.getText(), comboTipoSangre.getSelectedItem().toString());
 				if (esDatosCompletos()) {
 					pacienteRepo.guardarPaciente(paciente);
@@ -106,13 +105,13 @@ public class DatosPaciente {
 
 		JLabel lblDniPaciente = new JLabel("DNI Paciente");
 		lblDniPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDniPaciente.setBounds(52, 128, 149, 36);
+		lblDniPaciente.setBounds(52, 169, 149, 36);
 		frame.getContentPane().add(lblDniPaciente);
 
 		textDNI = new JTextField();
 		textDNI.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textDNI.setColumns(10);
-		textDNI.setBounds(267, 131, 200, 32);
+		textDNI.setBounds(267, 172, 200, 32);
 		frame.getContentPane().add(textDNI);
 
 		textDNI.addFocusListener(new FocusAdapter() {
@@ -124,19 +123,14 @@ public class DatosPaciente {
 
 		JLabel lblTelefonoPaciente = new JLabel("Telefono Paciente");
 		lblTelefonoPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTelefonoPaciente.setBounds(52, 175, 169, 36);
+		lblTelefonoPaciente.setBounds(52, 216, 169, 36);
 		frame.getContentPane().add(lblTelefonoPaciente);
 
 		textTelefono = new JTextField();
 		textTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textTelefono.setColumns(10);
-		textTelefono.setBounds(267, 179, 200, 32);
+		textTelefono.setBounds(267, 220, 200, 32);
 		frame.getContentPane().add(textTelefono);
-
-		JLabel lblFechaDeIngreso = new JLabel("Fecha de Ingreso");
-		lblFechaDeIngreso.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFechaDeIngreso.setBounds(52, 227, 169, 31);
-		frame.getContentPane().add(lblFechaDeIngreso);
 
 		JLabel lblTipoDeSangre = new JLabel("Tipo de Sangre");
 		lblTipoDeSangre.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -165,12 +159,6 @@ public class DatosPaciente {
 				Utils.esTextoValido(textDNI.getText());
 			}
 		});
-
-		dateIngreso = new JDateChooser();
-		dateIngreso.setBounds(267, 227, 200, 31);
-		dateIngreso.setDateFormatString("dd-MM-yyyy");
-		dateIngreso.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		frame.getContentPane().add(dateIngreso);
 
 		comboTipoSangre = new JComboBox<String>();
 		comboTipoSangre.setFont(new Font("Tahoma", Font.PLAIN, 18));

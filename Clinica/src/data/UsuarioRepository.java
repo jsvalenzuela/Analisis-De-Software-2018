@@ -74,7 +74,7 @@ public class UsuarioRepository {
 	}
 
 	private String obtenerSiguienteCod() throws SQLException {
-		PreparedStatement st = dbAccess.connect.prepareStatement("select count(*) as cant from USUARIO");
+		PreparedStatement st = dbAccess.connect.prepareStatement("select max(codigo) as cant from USUARIO");
 		ResultSet result = st.executeQuery();
 		int cant = result.getInt("cant");
 		cant++;

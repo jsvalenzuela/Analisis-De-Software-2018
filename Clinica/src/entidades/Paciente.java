@@ -1,24 +1,16 @@
 package entidades;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import utilities.Utils;
-
 public class Paciente {
 
 	private int codigo;
 	private String dni;
-	private Calendar fechaIngreso;
 	private String nombre;
 	private String telefono;
 	private String direccion;
 	private String tipoSangre;
 
-	public Paciente(String dni, Calendar fechaIngreso, String nombre, String telefono, String direccion,
-			String tipoSangre) {
+	public Paciente(String dni, String nombre, String telefono, String direccion, String tipoSangre) {
 		this.dni = dni;
-		this.fechaIngreso = fechaIngreso;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
@@ -44,14 +36,6 @@ public class Paciente {
 
 	public void setDni(String dni) {
 		this.dni = dni;
-	}
-
-	public Calendar getFechaIngreso() {
-		return fechaIngreso;
-	}
-
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = Utils.toCalendar(fechaIngreso);
 	}
 
 	public String getNombre() {

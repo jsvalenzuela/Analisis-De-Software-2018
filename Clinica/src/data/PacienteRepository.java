@@ -20,17 +20,14 @@ public class PacienteRepository {
 		try {
 			// Query para insert en BD
 			PreparedStatement st = dbAccess.connect.prepareStatement(
-					"insert into Paciente( Codigo,Dni, FechaIngreso, Nombre,Telefono, Direccion,TipoSangre) values (?,?,?,?,?,?,?)",
+					"insert into Paciente( Codigo,Dni, Nombre,Telefono, Direccion,TipoSangre) values (?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-
-			java.sql.Date fechaing = new java.sql.Date(paciente.getFechaIngreso().getTime().getTime());
 			st.setString(1, obtenerSiguienteCod());
 			st.setString(2, paciente.getDni());
-			st.setDate(3, fechaing);
-			st.setString(4, paciente.getNombre());
-			st.setString(5, paciente.getTelefono());
-			st.setString(6, paciente.getDireccion());
-			st.setString(7, paciente.getTipoSangre());
+			st.setString(3, paciente.getNombre());
+			st.setString(4, paciente.getTelefono());
+			st.setString(5, paciente.getDireccion());
+			st.setString(6, paciente.getTipoSangre());
 
 			st.execute();
 
@@ -52,22 +49,22 @@ public class PacienteRepository {
 			Log.getInstance().error(e.getSQLState());
 			return false;
 		}
-	}
+	}			
 
-	public java.util.List<Paciente> listadoPacientes() {
+	public java.util.List<Paciente> listadoPacientes(String filtro) {
 		java.util.List<Paciente> pacientes = new java.util.ArrayList<Paciente>();
 		ResultSet result = null;
 		Paciente paciente;
 		try {
 
-			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Paciente");
+			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Paciente where Nombre like ?"); 
+			st.setString(1, "%" + filtro + "%");
 			result = st.executeQuery();
 
 			while (result.next()) {
 				paciente = new Paciente();
 				paciente.setCodigo(result.getInt("Codigo"));
 				paciente.setDni(result.getString("Dni"));
-				paciente.setFechaIngreso(result.getDate("fechaIngreso"));
 				paciente.setNombre(result.getString("Nombre"));
 				paciente.setTelefono(result.getString("Telefono"));
 				paciente.setDireccion(result.getString("Direccion"));
@@ -76,7 +73,6 @@ public class PacienteRepository {
 			}
 			result.close();
 			st.close();
-			dbAccess.close();
 		} catch (Exception e) {
 			Log.getInstance().error("Error listadoPacientes: " + e.getMessage());
 		}
@@ -84,7 +80,7 @@ public class PacienteRepository {
 	}
 
 	private String obtenerSiguienteCod() throws SQLException {
-		PreparedStatement st = dbAccess.connect.prepareStatement("select count(*) as cant from Paciente");
+		PreparedStatement st = dbAccess.connect.prepareStatement("select max(codigo) as cant from Paciente");
 		ResultSet result = st.executeQuery();
 		int cant = result.getInt("cant");
 		cant++;

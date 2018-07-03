@@ -77,7 +77,7 @@ public class MedicoRepository {
 	}
 
 	private String obtenerSiguienteCod() throws SQLException {
-		PreparedStatement st = dbAccess.connect.prepareStatement("select count(*) as cant from Medico");
+		PreparedStatement st = dbAccess.connect.prepareStatement("select max(codigo) as cant from Medico");
 		ResultSet result = st.executeQuery();
 		int cant = result.getInt("cant");
 		cant++;
@@ -86,13 +86,14 @@ public class MedicoRepository {
 		return String.valueOf(cant);
 	}
 
-	public List<Medico> listadoMedicos() {
+	public List<Medico> listadoMedicos(String filtro) {
 		java.util.List<Medico> medicos = new java.util.ArrayList<Medico>();
 		ResultSet result = null;
 		Medico medico;
 		try {
 
-			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Medico");
+			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Medico where Nombre like ?");
+			st.setString(1, "%" + filtro + "%");
 			result = st.executeQuery();
 
 			while (result.next()) {

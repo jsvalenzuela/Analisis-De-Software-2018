@@ -62,7 +62,7 @@ public class MenuInformes {
 		JButton btnAtras = new JButton("Atr\u00E1s");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal menuPrincipal = new MenuPrincipal();
+				new MenuPrincipal();
 				frame.setVisible(false);
 			}
 		});

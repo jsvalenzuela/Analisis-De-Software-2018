@@ -20,8 +20,11 @@ import entidades.Medico;
 import utilities.Log;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class InformePaciente extends JFrame {
@@ -33,6 +36,7 @@ public class InformePaciente extends JFrame {
 	private MenuInformes menu;
 	private DiagnosticoRepository diagnosticoRepo;
 	private PacienteRepository pacienteRepo;
+	private JTextField textMedico;
 
 	/**
 	 * Create the frame.
@@ -61,14 +65,14 @@ public class InformePaciente extends JFrame {
 
 		JLabel lblIngreseMatriculaDel = new JLabel("Seleccione el M\u00E9dico:");
 		lblIngreseMatriculaDel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblIngreseMatriculaDel.setBounds(15, 82, 308, 31);
+		lblIngreseMatriculaDel.setBounds(10, 124, 207, 31);
 		contentPane.add(lblIngreseMatriculaDel);
 
 		comboMedicos = new JComboBox<Medico>();
 		comboMedicos.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		comboMedicos.setBounds(233, 84, 290, 26);
+		comboMedicos.setBounds(233, 126, 290, 26);
 		contentPane.add(comboMedicos);
-		comboMedicos.setModel(new DefaultComboBoxModel<Medico>(medicoRepo.listadoMedicos().toArray(new Medico[0])));
+		filtrarMedico("");//Trae todos los medicos
 
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
@@ -77,12 +81,12 @@ public class InformePaciente extends JFrame {
 				agregaDatosATabla(codMedico);
 			}
 		});
-		btnBuscar.setBounds(408, 138, 115, 29);
+		btnBuscar.setBounds(408, 181, 115, 29);
 		contentPane.add(btnBuscar);
 
 		JLabel lblPacientes = new JLabel("Pacientes");
 		lblPacientes.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPacientes.setBounds(15, 185, 115, 31);
+		lblPacientes.setBounds(25, 229, 115, 31);
 		contentPane.add(lblPacientes);
 
 		JButton btnAtrs = new JButton("Atr\u00E1s");
@@ -92,12 +96,44 @@ public class InformePaciente extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnAtrs.setBounds(233, 512, 115, 36);
+		btnAtrs.setBounds(234, 534, 115, 36);
 		contentPane.add(btnAtrs);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
 
-		table.setBounds(25, 246, 498, 228);
+		table.setBounds(25, 281, 498, 228);
 		contentPane.add(table);
+		
+		JButton button = new JButton("...");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filtrarMedico(textMedico.getText());
+			}
+		});
+		button.setBounds(527, 71, 30, 30);
+		contentPane.add(button);
+		
+		textMedico = new JTextField();
+		textMedico.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textMedico.setColumns(10);
+		textMedico.setBounds(233, 73, 284, 26);
+		contentPane.add(textMedico);
+		
+		textMedico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent key) {
+				if (key.getKeyChar() == key.VK_ENTER)
+					try {
+						filtrarMedico(textMedico.getText());
+					} catch (Exception e) {
+						Log.getInstance().error("Error al validar contrasena " + e.getMessage());
+					}
+			}
+		});
+		
+		JLabel label = new JLabel("Busque un Médico:");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setBounds(10, 71, 175, 31);
+		contentPane.add(label);
 	}
 
 	private void agregaDatosATabla(String codMedico) {
@@ -123,5 +159,10 @@ public class InformePaciente extends JFrame {
 	private String obtenerCodigoMedico() {
 		Medico m = (Medico) comboMedicos.getSelectedItem();
 		return String.valueOf(m.getCodigo());
+	}
+	
+	private void filtrarMedico(String filtro) {
+		comboMedicos
+				.setModel(new DefaultComboBoxModel<Medico>(medicoRepo.listadoMedicos(filtro).toArray(new Medico[0])));
 	}
 }

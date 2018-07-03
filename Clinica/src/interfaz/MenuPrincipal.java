@@ -69,7 +69,7 @@ public class MenuPrincipal {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				login.setVisible(true);
+				frame.dispose();
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 20));

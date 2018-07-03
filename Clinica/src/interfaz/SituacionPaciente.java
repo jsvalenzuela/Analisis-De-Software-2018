@@ -12,6 +12,7 @@ import data.PacienteRepository;
 import entidades.Diagnostico;
 import entidades.Medico;
 import entidades.Paciente;
+import utilities.Log;
 
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
@@ -19,7 +20,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class SituacionPaciente {
 
@@ -32,6 +36,8 @@ public class SituacionPaciente {
 	private MedicoRepository medicoRepo;
 	private DiagnosticoRepository diagnosticoRepo;
 	private Diagnostico diagnostico;
+	private JTextField textMedico;
+	private JTextField textPaciente;
 
 	/**
 	 * Create the application.
@@ -63,36 +69,35 @@ public class SituacionPaciente {
 		lblSituacinDelPaciente.setBounds(182, 16, 249, 38);
 		frame.getContentPane().add(lblSituacinDelPaciente);
 
-		JLabel lblCodigoPaciente = new JLabel("C\u00F3digo Paciente");
+		JLabel lblCodigoPaciente = new JLabel("Paciente");
 		lblCodigoPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCodigoPaciente.setBounds(69, 94, 214, 30);
+		lblCodigoPaciente.setBounds(69, 158, 183, 30);
 		frame.getContentPane().add(lblCodigoPaciente);
 
-		JLabel lblCdigoMdico = new JLabel("C\u00F3digo M\u00E9dico");
+		JLabel lblCdigoMdico = new JLabel("M\u00E9dico");
 		lblCdigoMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCdigoMdico.setBounds(69, 157, 214, 30);
+		lblCdigoMdico.setBounds(69, 255, 150, 30);
 		frame.getContentPane().add(lblCdigoMdico);
 
 		JLabel lblDiagnosticoDelMdico = new JLabel("Diagnostico del M\u00E9dico");
 		lblDiagnosticoDelMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDiagnosticoDelMdico.setBounds(69, 218, 214, 30);
+		lblDiagnosticoDelMdico.setBounds(69, 289, 214, 30);
 		frame.getContentPane().add(lblDiagnosticoDelMdico);
 
 		comboPacientes = new JComboBox<Paciente>();
 		comboPacientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		comboPacientes.setBounds(267, 96, 200, 26);
+		comboPacientes.setBounds(286, 153, 217, 26);
 		frame.getContentPane().add(comboPacientes);
-		comboPacientes
-				.setModel(new DefaultComboBoxModel<Paciente>(pacienteRepo.listadoPacientes().toArray(new Paciente[0])));
+		filtrarPaciente("");
 
 		comboMedicos = new JComboBox<Medico>();
 		comboMedicos.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		comboMedicos.setBounds(267, 159, 200, 26);
+		comboMedicos.setBounds(286, 257, 217, 26);
 		frame.getContentPane().add(comboMedicos);
-		comboMedicos.setModel(new DefaultComboBoxModel<Medico>(medicoRepo.listadoMedicos().toArray(new Medico[0])));
+		filtrarMedico("");// Trae todos los medicos
 
 		textArea = new JTextArea();
-		textArea.setBounds(69, 258, 434, 109);
+		textArea.setBounds(69, 358, 434, 109);
 		frame.getContentPane().add(textArea);
 
 		JButton btnGuardar = new JButton("Guardar");
@@ -116,6 +121,71 @@ public class SituacionPaciente {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(373, 512, 130, 36);
 		frame.getContentPane().add(btnCancelar);
+
+		JButton btnFiltroMedico = new JButton("...");
+		btnFiltroMedico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filtrarMedico(textMedico.getText());
+			}
+		});
+		btnFiltroMedico.setBounds(527, 202, 30, 30);
+		frame.getContentPane().add(btnFiltroMedico);
+
+		textMedico = new JTextField();
+		textMedico.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textMedico.setColumns(10);
+		textMedico.setBounds(286, 201, 219, 26);
+		frame.getContentPane().add(textMedico);
+
+		textMedico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent key) {
+				if (key.getKeyChar() == key.VK_ENTER)
+					try {
+						filtrarMedico(textMedico.getText());
+					} catch (Exception e) {
+						Log.getInstance().error(e.getMessage());
+					}
+			}
+		});
+
+		
+		JLabel label = new JLabel("Busque un M\u00E9dico:");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setBounds(69, 199, 175, 31);
+		frame.getContentPane().add(label);
+
+		JLabel lblBusqueUnPaciente = new JLabel("Busque un Paciente");
+		lblBusqueUnPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblBusqueUnPaciente.setBounds(69, 114, 175, 31);
+		frame.getContentPane().add(lblBusqueUnPaciente);
+
+		textPaciente = new JTextField();
+		textPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textPaciente.setColumns(10);
+		textPaciente.setBounds(286, 116, 219, 26);
+		frame.getContentPane().add(textPaciente);
+		
+		textPaciente.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent key) {
+				if (key.getKeyChar() == key.VK_ENTER)
+					try {
+						filtrarPaciente(textPaciente.getText());
+					} catch (Exception e) {
+						Log.getInstance().error(e.getMessage());
+					}
+			}
+		});
+
+		JButton btnFiltroPaciente = new JButton("...");
+		btnFiltroPaciente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filtrarPaciente(textPaciente.getText());
+			}
+		});
+		btnFiltroPaciente.setBounds(527, 117, 30, 30);
+		frame.getContentPane().add(btnFiltroPaciente);
 
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -144,5 +214,16 @@ public class SituacionPaciente {
 	private String obtenerCodigoMedico() {
 		Medico m = (Medico) comboMedicos.getSelectedItem();
 		return String.valueOf(m.getCodigo());
+	}
+
+	private void filtrarMedico(String filtro) {
+		comboMedicos
+				.setModel(new DefaultComboBoxModel<Medico>(medicoRepo.listadoMedicos(filtro).toArray(new Medico[0])));
+	}
+
+	private void filtrarPaciente(String filtro) {
+		comboPacientes.setModel(
+				new DefaultComboBoxModel<Paciente>(pacienteRepo.listadoPacientes(filtro).toArray(new Paciente[0])));
+
 	}
 }
