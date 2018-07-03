@@ -3,6 +3,7 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import entidades.Medico;
 import utilities.Log;
@@ -83,5 +84,33 @@ public class MedicoRepository {
 		result.close();
 		st.close();
 		return String.valueOf(cant);
+	}
+
+	public List<Medico> listadoMedicos() {
+		java.util.List<Medico> medicos = new java.util.ArrayList<Medico>();
+		ResultSet result = null;
+		Medico medico;
+		try {
+
+			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Medico");
+			result = st.executeQuery();
+
+			while (result.next()) {
+				medico = new Medico();
+				medico.setCodigo(result.getInt("Codigo"));
+				medico.setNombre(result.getString("Nombre"));
+				medico.setTelefono(result.getString("Telefono"));
+				medico.setEspecialidad(result.getString("Especialidad"));
+				medico.setMatricula(result.getString("Matricula"));
+				medicos.add(medico);
+
+			}
+			result.close();
+			st.close();
+			dbAccess.close();
+		} catch (Exception e) {
+			Log.getInstance().error("Error listadoMedicos: " + e.getMessage());
+		}
+		return medicos;
 	}
 }

@@ -15,6 +15,9 @@ public class Medico {
 		this.especialidad = especialidad;
 	}
 
+	public Medico() {
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
@@ -55,4 +58,8 @@ public class Medico {
 		this.especialidad = especialidad;
 	}
 
+	@Override
+	public String toString() {
+		return nombre;
+	}
 }

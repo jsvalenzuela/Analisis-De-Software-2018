@@ -14,9 +14,6 @@ public class Paciente {
 	private String telefono;
 	private String direccion;
 	private String tipoSangre;
-	private String dia;
-	private String mes;
-	private String anio;
 
 	public Paciente(String dni, Calendar fechaIngreso, String nombre, String telefono, String direccion,
 			String tipoSangre) {
@@ -87,5 +84,10 @@ public class Paciente {
 
 	public void setTipoSangre(String tipoSangre) {
 		this.tipoSangre = tipoSangre;
+	}
+
+	@Override
+	public String toString() {
+		return nombre;
 	}
 }

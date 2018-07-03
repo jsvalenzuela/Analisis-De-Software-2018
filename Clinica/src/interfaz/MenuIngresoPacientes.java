@@ -61,7 +61,7 @@ public class MenuIngresoPacientes {
 		JButton btnNewButton_1 = new JButton("Situaci\u00F3n Paciente");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SituacionPaciente sitPaciente = new SituacionPaciente();
+				SituacionPaciente sitPaciente = new SituacionPaciente(menu);
 				frame.setVisible(false);
 
 			}

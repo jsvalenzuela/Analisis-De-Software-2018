@@ -3,9 +3,6 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-
 import entidades.Paciente;
 import utilities.Log;
 
@@ -25,11 +22,11 @@ public class PacienteRepository {
 			PreparedStatement st = dbAccess.connect.prepareStatement(
 					"insert into Paciente( Codigo,Dni, FechaIngreso, Nombre,Telefono, Direccion,TipoSangre) values (?,?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			
+
 			java.sql.Date fechaing = new java.sql.Date(paciente.getFechaIngreso().getTime().getTime());
 			st.setString(1, obtenerSiguienteCod());
 			st.setString(2, paciente.getDni());
-			st.setDate(3,fechaing);
+			st.setDate(3, fechaing);
 			st.setString(4, paciente.getNombre());
 			st.setString(5, paciente.getTelefono());
 			st.setString(6, paciente.getDireccion());
@@ -57,8 +54,8 @@ public class PacienteRepository {
 		}
 	}
 
-	public ArrayList<Paciente> listadoPacientes() {
-		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+	public java.util.List<Paciente> listadoPacientes() {
+		java.util.List<Paciente> pacientes = new java.util.ArrayList<Paciente>();
 		ResultSet result = null;
 		Paciente paciente;
 		try {
