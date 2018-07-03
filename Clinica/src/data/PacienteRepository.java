@@ -93,4 +93,19 @@ public class PacienteRepository {
 		return String.valueOf(cant);
 	}
 
+	public String obtenerNombrePaciente(String idPaciente) {
+		ResultSet result = null;
+		try {
+			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Paciente where Codigo = ? ");
+			st.setString(1, idPaciente);
+			result = st.executeQuery();
+
+			if (result != null && result.next()) {
+				return result.getString("Nombre");
+			}
+		} catch (SQLException e) {
+			Log.getInstance().error(e.getMessage());
+		}
+		return idPaciente;
+	}
 }

@@ -11,6 +11,7 @@ public class MenuIngresoPacientes {
 
 	private JFrame frame;
 	private MenuIngresoPacientes menu;
+
 	/**
 	 * Create the application.
 	 */
@@ -81,7 +82,7 @@ public class MenuIngresoPacientes {
 		btnAtrs.setBounds(189, 316, 216, 50);
 		frame.getContentPane().add(btnAtrs);
 	}
-	
+
 	public void setVisible(boolean visible) {
 		this.frame.setVisible(visible);
 	}

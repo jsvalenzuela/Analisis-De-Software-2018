@@ -12,7 +12,6 @@ public class MenuPrincipal {
 	private JFrame frame;
 	private Login login;
 	private MenuPrincipal menu;
-	
 
 	/**
 	 * Create the application.
@@ -30,7 +29,7 @@ public class MenuPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.menu= this;
+		this.menu = this;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 640, 580);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

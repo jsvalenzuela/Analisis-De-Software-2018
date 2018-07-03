@@ -107,7 +107,6 @@ public class MedicoRepository {
 			}
 			result.close();
 			st.close();
-			dbAccess.close();
 		} catch (Exception e) {
 			Log.getInstance().error("Error listadoMedicos: " + e.getMessage());
 		}

@@ -114,7 +114,7 @@ public class DatosPaciente {
 		textDNI.setColumns(10);
 		textDNI.setBounds(267, 131, 200, 32);
 		frame.getContentPane().add(textDNI);
-		
+
 		textDNI.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -158,7 +158,7 @@ public class DatosPaciente {
 		textDireccion.setColumns(10);
 		textDireccion.setBounds(267, 321, 200, 32);
 		frame.getContentPane().add(textDireccion);
-		
+
 		textDireccion.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {

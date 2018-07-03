@@ -15,7 +15,7 @@ public class Utils {
 		cal.setTime(date);
 		return cal;
 	}
-	
+
 	public static boolean validarTexto(String text) {
 		Pattern p = Pattern.compile("(\\w(\\s)?)+");
 		Matcher m = p.matcher(text);
@@ -23,7 +23,7 @@ public class Utils {
 			return true;
 		return false;
 	}
-	
+
 	public static boolean validarNumero(String numero) {
 		Pattern p = Pattern.compile("^[0-9]+$");
 		Matcher m = p.matcher(numero);
@@ -31,13 +31,13 @@ public class Utils {
 			return true;
 		return false;
 	}
-	
+
 	public static void esNumeroValido(String value) {
 		if (!Utils.validarNumero(value)) {
 			JOptionPane.showMessageDialog(null, "Ingrese un numero válido.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
 	public static void esTextoValido(String text) {
 		if (!Utils.validarTexto(text)) {
 			JOptionPane.showMessageDialog(null, "Solo se aceptan caracteres.", "Error", JOptionPane.ERROR_MESSAGE);

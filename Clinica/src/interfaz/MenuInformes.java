@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 public class MenuInformes {
 
 	private JFrame frame;
+	private MenuInformes menu;
 
 	/**
 	 * Create the application.
@@ -23,6 +24,7 @@ public class MenuInformes {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		this.menu = this;
 		frame.setBounds(100, 100, 640, 580);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -38,7 +40,7 @@ public class MenuInformes {
 		JButton btnListadoDePacientes = new JButton("Listado de pacientes por m\u00E9dico");
 		btnListadoDePacientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InformePaciente informePaciente = new InformePaciente();
+				new InformePaciente(menu);
 				frame.setVisible(false);
 			}
 		});
@@ -47,6 +49,12 @@ public class MenuInformes {
 		frame.getContentPane().add(btnListadoDePacientes);
 
 		JButton btnEnfermedadesQueAtiende = new JButton("Enfermedades por m\u00E9dico");
+		btnEnfermedadesQueAtiende.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new InformeMedico(menu);
+				frame.setVisible(false);
+			}
+		});
 		btnEnfermedadesQueAtiende.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnEnfermedadesQueAtiende.setBounds(146, 222, 307, 50);
 		frame.getContentPane().add(btnEnfermedadesQueAtiende);
@@ -61,6 +69,11 @@ public class MenuInformes {
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAtras.setBounds(146, 329, 307, 50);
 		frame.getContentPane().add(btnAtras);
+
+	}
+
+	public void setVisible(boolean visible) {
+		this.frame.setVisible(visible);
 
 	}
 }

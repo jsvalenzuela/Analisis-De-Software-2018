@@ -4,37 +4,46 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import data.DiagnosticoRepository;
 import data.MedicoRepository;
+import data.PacienteRepository;
+import entidades.Diagnostico;
+import entidades.Medico;
 import utilities.Log;
 
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class InformePaciente extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTable table = new JTable();
 	private MedicoRepository medicoRepo;
+	private JComboBox<Medico> comboMedicos;
+	private MenuInformes menu;
+	private DiagnosticoRepository diagnosticoRepo;
+	private PacienteRepository pacienteRepo;
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @param menu
 	 */
-	public InformePaciente() {
+	public InformePaciente(MenuInformes menu) {
+		this.menu = menu;
+		pacienteRepo = new PacienteRepository();
 		medicoRepo = new MedicoRepository();
+		diagnosticoRepo = new DiagnosticoRepository();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 620);
 		setVisible(true);
@@ -50,45 +59,36 @@ public class InformePaciente extends JFrame {
 		lblInformeDePacientes.setBounds(181, 16, 242, 31);
 		contentPane.add(lblInformeDePacientes);
 
-		JLabel lblIngreseMatriculaDel = new JLabel("Ingrese Matricula del M\u00E9dico:");
+		JLabel lblIngreseMatriculaDel = new JLabel("Seleccione el M\u00E9dico:");
 		lblIngreseMatriculaDel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblIngreseMatriculaDel.setBounds(15, 82, 308, 31);
 		contentPane.add(lblIngreseMatriculaDel);
 
-		textField = new JTextField();
-		textField.setBounds(15, 128, 318, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		comboMedicos = new JComboBox<Medico>();
+		comboMedicos.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		comboMedicos.setBounds(233, 84, 290, 26);
+		contentPane.add(comboMedicos);
+		comboMedicos.setModel(new DefaultComboBoxModel<Medico>(medicoRepo.listadoMedicos().toArray(new Medico[0])));
 
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (!textField.getText().isEmpty()) {
-					if (medicoRepo.existeMedico(textField.getText())) {
-						agregaDatosATabla(textField.getText());
-					} else {
-						JOptionPane.showMessageDialog(null, "Matricula de Médico Incorrecto", "Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Matricula de Médico Vacio. Ingrese Matricula", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				String codMedico = obtenerCodigoMedico();
+				agregaDatosATabla(codMedico);
 			}
 		});
-		btnBuscar.setBounds(408, 127, 115, 29);
+		btnBuscar.setBounds(408, 138, 115, 29);
 		contentPane.add(btnBuscar);
 
 		JLabel lblPacientes = new JLabel("Pacientes");
 		lblPacientes.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPacientes.setBounds(15, 196, 115, 31);
+		lblPacientes.setBounds(15, 185, 115, 31);
 		contentPane.add(lblPacientes);
 
 		JButton btnAtrs = new JButton("Atr\u00E1s");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuInformes menuInformes = new MenuInformes();
+				menu.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -100,38 +100,28 @@ public class InformePaciente extends JFrame {
 		contentPane.add(table);
 	}
 
-	private void agregaDatosATabla(String matricula) {
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		String linea;
+	private void agregaDatosATabla(String codMedico) {
 
 		try {
-			fileReader = new FileReader(new File("file/situacionPacientes.txt"));
-			bufferedReader = new BufferedReader(fileReader);
 			DefaultTableModel modelo = new DefaultTableModel();
-			modelo.addColumn("Codigo Paciente");
+			modelo.addColumn("Paciente");
 			modelo.addColumn("Diagnostico");
-
-			while ((linea = bufferedReader.readLine()) != null) {
-				String[] datos = linea.split(" ");
-
-				if (matricula.equals(datos[1])) {
-					Object[] fila = new Object[2];
-					fila[0] = datos[0];
-					fila[1] = datos[2];
-
-					modelo.addRow(fila);
-				}
+			ArrayList<Diagnostico> diagnosticos = (ArrayList<Diagnostico>) diagnosticoRepo
+					.listadoDiagnosticoMedico(codMedico);
+			for (Diagnostico diagnostico : diagnosticos) {
+				Object[] fila = new Object[2];
+				fila[0] = pacienteRepo.obtenerNombrePaciente(diagnostico.getIdPaciente());
+				fila[1] = diagnostico.getDiagnostico();
+				modelo.addRow(fila);
 			}
 			table.setModel(modelo);
 		} catch (Exception e) {
 			Log.getInstance().error(e.getMessage());
-		} finally {
-			try {
-				fileReader.close();
-			} catch (IOException e) {
-				Log.getInstance().error(e.getMessage());
-			}
 		}
+	}
+
+	private String obtenerCodigoMedico() {
+		Medico m = (Medico) comboMedicos.getSelectedItem();
+		return String.valueOf(m.getCodigo());
 	}
 }
