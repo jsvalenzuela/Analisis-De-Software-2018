@@ -17,7 +17,7 @@ public class Utils {
 	}
 
 	public static boolean validarTexto(String text) {
-		Pattern p = Pattern.compile("(\\w(\\s)?)+");
+		Pattern p = Pattern.compile("^[_A-z]*((-|\\s)*[_A-z])*$");
 		Matcher m = p.matcher(text);
 		if (m.find())
 			return true;
@@ -32,16 +32,20 @@ public class Utils {
 		return false;
 	}
 
-	public static void esNumeroValido(String value) {
+	public static boolean esNumeroValido(String value, String campo) {
 		if (!Utils.validarNumero(value)) {
-			JOptionPane.showMessageDialog(null, "Ingrese un numero válido.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, campo +" solo acepta números.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
+		return true;
 	}
 
-	public static void esTextoValido(String text) {
+	public static boolean esTextoValido(String text,String campo) {
 		if (!Utils.validarTexto(text)) {
-			JOptionPane.showMessageDialog(null, "Solo se aceptan caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, campo + " solo se aceptan caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
+		return true;
 	}
 
 }

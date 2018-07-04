@@ -37,9 +37,12 @@ public class MedicoRepository {
 
 			if (rs != null && rs.next()) {
 				// Se inserto correctamente el medico
-				int idMedico = rs.getInt(1);
+				rs.close();
+				st.close();
 				return true;
 			}
+			rs.close();
+			st.close();
 			return false;
 
 		} catch (SQLException e) {
@@ -53,6 +56,7 @@ public class MedicoRepository {
 			PreparedStatement st = dbAccess.connect.prepareStatement("delete from Medico where codigo=?");
 			st.setInt(1, medico.getCodigo());
 			st.executeQuery();
+			st.close();
 		} catch (SQLException e) {
 			Log.getInstance().error("Error borrarMedico: " + e.getMessage());
 		}
@@ -66,10 +70,11 @@ public class MedicoRepository {
 			result = st.executeQuery();
 
 			if (result.next()) {
+				result.close();
 				return true;
 			}
+			result.close();
 			return false;
-
 		} catch (SQLException e) {
 			Log.getInstance().error(e.getMessage());
 			return false;

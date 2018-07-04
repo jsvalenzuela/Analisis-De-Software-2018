@@ -2,9 +2,11 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -33,7 +35,7 @@ public class InformePaciente extends JFrame {
 	private JTable table = new JTable();
 	private MedicoRepository medicoRepo;
 	private JComboBox<Medico> comboMedicos;
-	private MenuInformes menu;
+	private MenuInformes menuInformes;
 	private DiagnosticoRepository diagnosticoRepo;
 	private PacienteRepository pacienteRepo;
 	private JTextField textMedico;
@@ -44,7 +46,7 @@ public class InformePaciente extends JFrame {
 	 * @param menu
 	 */
 	public InformePaciente(MenuInformes menu) {
-		this.menu = menu;
+		this.menuInformes = menu;
 		pacienteRepo = new PacienteRepository();
 		medicoRepo = new MedicoRepository();
 		diagnosticoRepo = new DiagnosticoRepository();
@@ -72,7 +74,7 @@ public class InformePaciente extends JFrame {
 		comboMedicos.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboMedicos.setBounds(233, 126, 290, 26);
 		contentPane.add(comboMedicos);
-		filtrarMedico("");//Trae todos los medicos
+		filtrarMedico("");// Trae todos los medicos
 
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
@@ -85,14 +87,14 @@ public class InformePaciente extends JFrame {
 		contentPane.add(btnBuscar);
 
 		JLabel lblPacientes = new JLabel("Pacientes");
-		lblPacientes.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPacientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPacientes.setBounds(25, 229, 115, 31);
 		contentPane.add(lblPacientes);
 
 		JButton btnAtrs = new JButton("Atr\u00E1s");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				menu.setVisible(true);
+				menuInformes.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -102,7 +104,7 @@ public class InformePaciente extends JFrame {
 
 		table.setBounds(25, 281, 498, 228);
 		contentPane.add(table);
-		
+
 		JButton button = new JButton("...");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -111,13 +113,13 @@ public class InformePaciente extends JFrame {
 		});
 		button.setBounds(527, 71, 30, 30);
 		contentPane.add(button);
-		
+
 		textMedico = new JTextField();
 		textMedico.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textMedico.setColumns(10);
 		textMedico.setBounds(233, 73, 284, 26);
 		contentPane.add(textMedico);
-		
+
 		textMedico.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent key) {
@@ -129,7 +131,7 @@ public class InformePaciente extends JFrame {
 					}
 			}
 		});
-		
+
 		JLabel label = new JLabel("Busque un Médico:");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		label.setBounds(10, 71, 175, 31);
@@ -140,6 +142,7 @@ public class InformePaciente extends JFrame {
 
 		try {
 			DefaultTableModel modelo = new DefaultTableModel();
+
 			modelo.addColumn("Paciente");
 			modelo.addColumn("Diagnostico");
 			ArrayList<Diagnostico> diagnosticos = (ArrayList<Diagnostico>) diagnosticoRepo
@@ -160,7 +163,7 @@ public class InformePaciente extends JFrame {
 		Medico m = (Medico) comboMedicos.getSelectedItem();
 		return String.valueOf(m.getCodigo());
 	}
-	
+
 	private void filtrarMedico(String filtro) {
 		comboMedicos
 				.setModel(new DefaultComboBoxModel<Medico>(medicoRepo.listadoMedicos(filtro).toArray(new Medico[0])));

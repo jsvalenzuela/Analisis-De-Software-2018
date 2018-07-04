@@ -13,9 +13,9 @@ import utilities.Utils;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class DatosMedico {
 
@@ -26,6 +26,9 @@ public class DatosMedico {
 	private JTextField textMatricula;
 	private MedicoRepository medicoRepo;
 	private MenuIngresoPacientes menu;
+	private Medico medico;
+	private int limiteTexto = 25;
+	private int limiteMatricula = 6;
 
 	/**
 	 * Create the application.
@@ -64,12 +67,7 @@ public class DatosMedico {
 		frame.getContentPane().add(lblEspecializacinDelMdico);
 
 		textNombre = new JTextField();
-		textNombre.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				Utils.esTextoValido(textNombre.getText());
-			}
-		});
+
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textNombre.setBounds(321, 128, 181, 30);
 		frame.getContentPane().add(textNombre);
@@ -81,26 +79,21 @@ public class DatosMedico {
 		frame.getContentPane().add(textEspecialidad);
 		textEspecialidad.setColumns(10);
 
-		textEspecialidad.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				Utils.esTextoValido(textEspecialidad.getText());
-			}
-		});
-
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Medico medico = new Medico(textEspecialidad.getText(), textNombre.getText(), textTelefono.getText(),
-						textMatricula.getText());
-				if (esDatosCompletos()) {
-					medicoRepo.guardarMedico(medico);
-					JOptionPane.showMessageDialog(null, "Se ha ingresado al médico correctamente.", "Acción Realizada",
-							JOptionPane.INFORMATION_MESSAGE);
-					limpiarCampos();
-				} else {
+				medico = cargarDatosMedico();
+				if (!esDatosCompletos()) {
 					JOptionPane.showMessageDialog(null, "Hay campos vacios. Procure llenar los campos.", "Error",
 							JOptionPane.ERROR_MESSAGE);
+
+				} else {
+					if (datosValidos()) {
+						medicoRepo.guardarMedico(medico);
+						JOptionPane.showMessageDialog(null, "Se ha ingresado al médico correctamente.",
+								"Acción Realizada", JOptionPane.INFORMATION_MESSAGE);
+						limpiarCampos();
+					}
 				}
 			}
 		});
@@ -130,13 +123,6 @@ public class DatosMedico {
 		textMatricula.setBounds(321, 204, 181, 30);
 		frame.getContentPane().add(textMatricula);
 
-		textMatricula.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				Utils.esNumeroValido(textMatricula.getText());
-			}
-		});
-
 		JLabel lblTelefonoMdico = new JLabel("Tel\u00E9fono M\u00E9dico");
 		lblTelefonoMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTelefonoMdico.setBounds(48, 263, 241, 30);
@@ -147,6 +133,85 @@ public class DatosMedico {
 		textTelefono.setColumns(10);
 		textTelefono.setBounds(321, 263, 181, 30);
 		frame.getContentPane().add(textTelefono);
+		addListeners();
+	}
+
+	private void addListeners() {
+		textMatricula.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textMatricula.getText().length() == limiteMatricula)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		textEspecialidad.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textEspecialidad.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		textTelefono.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textTelefono.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		textNombre.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textNombre.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	private void limpiarCampos() {
@@ -161,6 +226,20 @@ public class DatosMedico {
 				&& textTelefono.getText().length() != 0 && textMatricula.getText().length() != 0) {
 			return true;
 		}
+		return false;
+	}
+
+	private Medico cargarDatosMedico() {
+		Medico medico = new Medico(textEspecialidad.getText(), textNombre.getText(), textTelefono.getText(),
+				textMatricula.getText());
+		return medico;
+	}
+
+	private boolean datosValidos() {
+		if (Utils.esTextoValido(textNombre.getText(), "Nombre")
+				&& Utils.esNumeroValido(textMatricula.getText(), "Matricula")
+				&& Utils.esTextoValido(textEspecialidad.getText(), "Especialidad"))
+			return true;
 		return false;
 	}
 }

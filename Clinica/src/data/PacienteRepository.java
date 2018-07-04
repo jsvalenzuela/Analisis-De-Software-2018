@@ -35,7 +35,6 @@ public class PacienteRepository {
 
 			if (rs != null && rs.next()) {
 				// Se inserto correctamente el medico
-				int id = rs.getInt(1);
 				rs.close();
 				st.close();
 				return true;
@@ -49,7 +48,7 @@ public class PacienteRepository {
 			Log.getInstance().error(e.getSQLState());
 			return false;
 		}
-	}			
+	}
 
 	public java.util.List<Paciente> listadoPacientes(String filtro) {
 		java.util.List<Paciente> pacientes = new java.util.ArrayList<Paciente>();
@@ -57,7 +56,7 @@ public class PacienteRepository {
 		Paciente paciente;
 		try {
 
-			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Paciente where Nombre like ?"); 
+			PreparedStatement st = dbAccess.connect.prepareStatement("select * from Paciente where Nombre like ?");
 			st.setString(1, "%" + filtro + "%");
 			result = st.executeQuery();
 

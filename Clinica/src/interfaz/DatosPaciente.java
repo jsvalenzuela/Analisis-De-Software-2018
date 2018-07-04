@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import com.toedter.calendar.JDateChooser;
 
 import data.PacienteRepository;
 import entidades.Paciente;
@@ -17,8 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class DatosPaciente {
 
@@ -30,6 +29,9 @@ public class DatosPaciente {
 	private JComboBox<String> comboTipoSangre;
 	private PacienteRepository pacienteRepo;
 	private MenuIngresoPacientes menu;
+	private Paciente paciente;
+	private int limiteTexto = 25;
+	private int limiteDNI = 8;
 
 	/**
 	 * Create the application.
@@ -63,12 +65,7 @@ public class DatosPaciente {
 		frame.getContentPane().add(lblNombrePaciente);
 
 		textNombre = new JTextField();
-		textNombre.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				Utils.esTextoValido(textNombre.getText());
-			}
-		});
+
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textNombre.setBounds(267, 124, 200, 32);
 		frame.getContentPane().add(textNombre);
@@ -77,16 +74,17 @@ public class DatosPaciente {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Paciente paciente = new Paciente(textDNI.getText(), textNombre.getText(),
-						textTelefono.getText(), textDireccion.getText(), comboTipoSangre.getSelectedItem().toString());
-				if (esDatosCompletos()) {
-					pacienteRepo.guardarPaciente(paciente);
-					JOptionPane.showMessageDialog(null, "Se ha ingresado el paciente correctamente.",
-							"Acción Realizada", JOptionPane.INFORMATION_MESSAGE);
-					limpiarCampos();
-				} else {
+				paciente = cargarDatosPaciente();
+				if (!esDatosCompletos()) {
 					JOptionPane.showMessageDialog(null, "Hay campos vacios. Procure llenar los campos.", "Error",
 							JOptionPane.ERROR_MESSAGE);
+				} else {
+					if (datosValidos()) {
+						pacienteRepo.guardarPaciente(paciente);
+						JOptionPane.showMessageDialog(null, "Se ha ingresado el paciente correctamente.",
+								"Acción Realizada", JOptionPane.INFORMATION_MESSAGE);
+						limpiarCampos();
+					}
 				}
 			}
 		});
@@ -95,6 +93,7 @@ public class DatosPaciente {
 
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
 				menu.setVisible(true);
 				frame.setVisible(false);
@@ -113,13 +112,6 @@ public class DatosPaciente {
 		textDNI.setColumns(10);
 		textDNI.setBounds(267, 172, 200, 32);
 		frame.getContentPane().add(textDNI);
-
-		textDNI.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				Utils.esNumeroValido(textDNI.getText());
-			}
-		});
 
 		JLabel lblTelefonoPaciente = new JLabel("Telefono Paciente");
 		lblTelefonoPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -153,19 +145,91 @@ public class DatosPaciente {
 		textDireccion.setBounds(267, 321, 200, 32);
 		frame.getContentPane().add(textDireccion);
 
-		textDireccion.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				Utils.esTextoValido(textDNI.getText());
-			}
-		});
-
 		comboTipoSangre = new JComboBox<String>();
 		comboTipoSangre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoSangre.setModel(
 				new DefaultComboBoxModel<String>(new String[] { "A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+" }));
 		comboTipoSangre.setBounds(267, 278, 200, 26);
 		frame.getContentPane().add(comboTipoSangre);
+		addListeners();
+	}
+
+	private void addListeners() {
+		textDNI.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textDNI.getText().length() == limiteDNI)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		textDireccion.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textDireccion.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		textTelefono.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textTelefono.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		textNombre.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (textNombre.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	private void limpiarCampos() {
@@ -180,6 +244,18 @@ public class DatosPaciente {
 				&& textTelefono.getText().length() != 0 && textDireccion.getText().length() != 0) {
 			return true;
 		}
+		return false;
+	}
+
+	private Paciente cargarDatosPaciente() {
+		Paciente paciente = new Paciente(textDNI.getText(), textNombre.getText(), textTelefono.getText(),
+				textDireccion.getText(), comboTipoSangre.getSelectedItem().toString());
+		return paciente;
+	}
+
+	private boolean datosValidos() {
+		if (Utils.esTextoValido(textNombre.getText(), "Nombre") && Utils.esNumeroValido(textDNI.getText(), "DNI"))
+			return true;
 		return false;
 	}
 }

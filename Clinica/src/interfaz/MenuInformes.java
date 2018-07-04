@@ -11,11 +11,14 @@ public class MenuInformes {
 
 	private JFrame frame;
 	private MenuInformes menu;
-
+	private MenuPrincipal menuPrincipal;
+	
 	/**
 	 * Create the application.
+	 * @param menu2 
 	 */
-	public MenuInformes() {
+	public MenuInformes(MenuPrincipal menuPrincipal) {
+		this.menuPrincipal=menuPrincipal;
 		initialize();
 	}
 
@@ -62,7 +65,7 @@ public class MenuInformes {
 		JButton btnAtras = new JButton("Atr\u00E1s");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new MenuPrincipal();
+				menuPrincipal.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
@@ -74,6 +77,5 @@ public class MenuInformes {
 
 	public void setVisible(boolean visible) {
 		this.frame.setVisible(visible);
-
 	}
 }

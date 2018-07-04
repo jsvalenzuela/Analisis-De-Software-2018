@@ -35,7 +35,6 @@ public class DiagnosticoRepository {
 
 			if (rs != null && rs.next()) {
 				// Se inserto correctamente el medico
-				int id = rs.getInt(1);
 				rs.close();
 				st.close();
 				return true;
@@ -86,5 +85,4 @@ public class DiagnosticoRepository {
 		st.close();
 		return String.valueOf(cant);
 	}
-
 }

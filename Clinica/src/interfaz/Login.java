@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -58,7 +59,7 @@ public class Login extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				Log.getInstance().info("Cerrar sesion");
 			}
 		});
@@ -67,7 +68,6 @@ public class Login extends JFrame {
 		this.usuarioRepo = new UsuarioRepository();
 		setTitle("Sistema de Control de Pacientes - Clínica Nuevo Espiritu");
 		setLogin(this);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 624, 346);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);
@@ -155,7 +155,7 @@ public class Login extends JFrame {
 		usuario.setNombreUsuario(txtUsuario.getText());
 		usuario.setPassword(tpContrasena.getText());
 		if (usuarioRepo.loguearUsuario(usuario)) {
-			MenuPrincipal menu = new MenuPrincipal(login);
+			new MenuPrincipal(login);
 			this.setVisible(false);
 		} else {
 			verificarNombreUsuario();
@@ -184,5 +184,9 @@ public class Login extends JFrame {
 
 	public void visible(boolean value) {
 		this.setVisible(value);
+	}
+	
+	public void closeApp() {
+		System.exit(NORMAL);
 	}
 }

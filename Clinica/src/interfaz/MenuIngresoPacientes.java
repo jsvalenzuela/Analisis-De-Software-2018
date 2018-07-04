@@ -11,11 +11,13 @@ public class MenuIngresoPacientes {
 
 	private JFrame frame;
 	private MenuIngresoPacientes menu;
+	private MenuPrincipal menuPrincipal;
 
 	/**
 	 * Create the application.
 	 */
-	public MenuIngresoPacientes() {
+	public MenuIngresoPacientes(MenuPrincipal menuPrincipal) {
+		this.menuPrincipal= menuPrincipal;
 		initialize();
 	}
 
@@ -41,7 +43,7 @@ public class MenuIngresoPacientes {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosPaciente datosPaciente = new DatosPaciente(menu);
+				new DatosPaciente(menu);
 				frame.setVisible(false);
 			}
 		});
@@ -51,7 +53,7 @@ public class MenuIngresoPacientes {
 		JButton btnDatosDelMdico = new JButton("Datos del M\u00E9dico");
 		btnDatosDelMdico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosMedico datosMedico = new DatosMedico(menu);
+				new DatosMedico(menu);
 				frame.setVisible(false);
 			}
 		});
@@ -62,9 +64,8 @@ public class MenuIngresoPacientes {
 		JButton btnNewButton_1 = new JButton("Situaci\u00F3n Paciente");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SituacionPaciente sitPaciente = new SituacionPaciente(menu);
+				new SituacionPaciente(menu);
 				frame.setVisible(false);
-
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -74,7 +75,7 @@ public class MenuIngresoPacientes {
 		JButton btnAtrs = new JButton("Atr\u00E1s");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal menuPrincipal = new MenuPrincipal();
+				menuPrincipal.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
@@ -86,5 +87,4 @@ public class MenuIngresoPacientes {
 	public void setVisible(boolean visible) {
 		this.frame.setVisible(visible);
 	}
-
 }

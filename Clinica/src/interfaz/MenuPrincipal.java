@@ -14,14 +14,10 @@ public class MenuPrincipal {
 	private MenuPrincipal menu;
 
 	/**
-	 * Create the application.
+	 * @wbp.parser.constructor
 	 */
 	public MenuPrincipal(Login login) {
 		this.login = login;
-		initialize();
-	}
-
-	public MenuPrincipal() {
 		initialize();
 	}
 
@@ -46,7 +42,7 @@ public class MenuPrincipal {
 		JButton btnIngresoDeDatos = new JButton("Ingreso de Datos");
 		btnIngresoDeDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuIngresoPacientes datosPacientes = new MenuIngresoPacientes();
+				new MenuIngresoPacientes(menu);
 				frame.setVisible(false);
 			}
 		});
@@ -57,7 +53,7 @@ public class MenuPrincipal {
 		JButton btnInformes = new JButton("Informes");
 		btnInformes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MenuInformes menuInformes = new MenuInformes();
+				new MenuInformes(menu);
 				frame.setVisible(false);
 			}
 		});
@@ -69,7 +65,7 @@ public class MenuPrincipal {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				frame.dispose();
+				login.closeApp();
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -79,7 +75,7 @@ public class MenuPrincipal {
 		JButton btnRegistro = new JButton("Registro de Usuario");
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Registro registro = new Registro(menu);
+				new Registro(menu);
 				frame.setVisible(false);
 			}
 		});
@@ -87,5 +83,9 @@ public class MenuPrincipal {
 		btnRegistro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnRegistro.setBounds(184, 294, 216, 50);
 		frame.getContentPane().add(btnRegistro);
+	}
+
+	public void setVisible(boolean visible) {
+		this.frame.setVisible(visible);
 	}
 }

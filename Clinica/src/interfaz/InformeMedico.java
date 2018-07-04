@@ -28,19 +28,17 @@ public class InformeMedico extends JFrame {
 
 	private JPanel contentPane;
 	private JList list = new JList();
-	private MenuInformes menu;
+	private MenuInformes menuInformes;
 	private MedicoRepository medicoRepo;
 	private JComboBox<Medico> comboMedicos;
-	private DiagnosticoRepository diagnosticoRepo;
 	private JTextField textMedico;
 
 	/**
 	 * Create the frame.
 	 */
 	public InformeMedico(MenuInformes menu) {
-		this.menu = menu;
+		this.menuInformes = menu;
 		medicoRepo = new MedicoRepository();
-		diagnosticoRepo = new DiagnosticoRepository();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 620);
 		setVisible(true);
@@ -82,8 +80,8 @@ public class InformeMedico extends JFrame {
 		JButton btnAtras = new JButton("Atr\u00E1s");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				menu.setVisible(true);
-				contentPane.setVisible(false);
+				menuInformes.setVisible(true);
+				setVisible(false);
 			}
 		});
 		btnAtras.setBounds(435, 539, 115, 31);

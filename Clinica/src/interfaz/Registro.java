@@ -58,7 +58,8 @@ public class Registro extends JFrame {
 		frmRegistro.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				dispose();
+				menu.setVisible(true);
+				frmRegistro.dispose();
 			}
 		});
 
