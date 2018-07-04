@@ -67,6 +67,7 @@ public class DatosMedico {
 		frame.getContentPane().add(lblEspecializacinDelMdico);
 
 		textNombre = new JTextField();
+		textNombre.setToolTipText("Nombre del m\u00E9dico. Hasta 25 caracteres");
 
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textNombre.setBounds(321, 128, 181, 30);
@@ -74,12 +75,14 @@ public class DatosMedico {
 		textNombre.setColumns(10);
 
 		textEspecialidad = new JTextField();
+		textEspecialidad.setToolTipText("Especialidad del m\u00E9dico. Hasta 25 caracteres");
 		textEspecialidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textEspecialidad.setBounds(319, 327, 181, 30);
 		frame.getContentPane().add(textEspecialidad);
 		textEspecialidad.setColumns(10);
 
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setToolTipText("Guadar los datooos del m\u00E9dico");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				medico = cargarDatosMedico();
@@ -118,6 +121,7 @@ public class DatosMedico {
 		frame.getContentPane().add(lblMatrculaDelMdico);
 
 		textMatricula = new JTextField();
+		textMatricula.setToolTipText("Matricula del m\u00E9dico. Hasta 6 cifras");
 		textMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textMatricula.setColumns(10);
 		textMatricula.setBounds(321, 204, 181, 30);
@@ -129,6 +133,7 @@ public class DatosMedico {
 		frame.getContentPane().add(lblTelefonoMdico);
 
 		textTelefono = new JTextField();
+		textTelefono.setToolTipText("Tel\u00E9fono del m\u00E9dico. Hasta 25 caracteres");
 		textTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textTelefono.setColumns(10);
 		textTelefono.setBounds(321, 263, 181, 30);

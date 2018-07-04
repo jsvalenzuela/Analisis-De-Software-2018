@@ -76,6 +76,7 @@ public class InformePaciente extends JFrame {
 		filtrarMedico("");// Trae todos los medicos
 
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setToolTipText("Realizar b\u00FAsqueda");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String codMedico = obtenerCodigoMedico();
@@ -101,6 +102,7 @@ public class InformePaciente extends JFrame {
 		contentPane.add(btnAtrs);
 
 		JButton button = new JButton("...");
+		button.setToolTipText("Filtrar listado");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filtrarMedico(textMedico.getText());
@@ -110,6 +112,7 @@ public class InformePaciente extends JFrame {
 		contentPane.add(button);
 
 		textMedico = new JTextField();
+		textMedico.setToolTipText("Ingrese el nombre para filtrar listado");
 		textMedico.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textMedico.setColumns(10);
 		textMedico.setBounds(233, 73, 284, 26);

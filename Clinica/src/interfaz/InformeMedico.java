@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import data.DiagnosticoRepository;
 import data.MedicoRepository;
 import entidades.Medico;
 import utilities.Log;
@@ -64,6 +63,7 @@ public class InformeMedico extends JFrame {
 		contentPane.add(comboMedicos);
 		filtrarMedico("");// Trae todos los médicos
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setToolTipText("Realizar la búsqueda");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				agregarEspecialidades(obtenerCodigoMedico());
@@ -97,6 +97,7 @@ public class InformeMedico extends JFrame {
 		contentPane.add(lblBusqueUnMdico);
 
 		textMedico = new JTextField();
+		textMedico.setToolTipText("Ingrese el nombre para filtrar listado");
 		textMedico.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textMedico.setColumns(10);
 		textMedico.setBounds(260, 97, 290, 26);
@@ -115,6 +116,7 @@ public class InformeMedico extends JFrame {
 		});
 
 		JButton btnFiltrar = new JButton("...");
+		btnFiltrar.setToolTipText("Filtrar listado");
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filtrarMedico(textMedico.getText());

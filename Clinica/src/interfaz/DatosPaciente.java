@@ -65,6 +65,7 @@ public class DatosPaciente {
 		frame.getContentPane().add(lblNombrePaciente);
 
 		textNombre = new JTextField();
+		textNombre.setToolTipText("Nombre del paciente. Hasta 25 caracteres separados por un caracter de espacio cada palabra");
 
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textNombre.setBounds(267, 124, 200, 32);
@@ -72,6 +73,7 @@ public class DatosPaciente {
 		textNombre.setColumns(10);
 
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setToolTipText("Guadar los datos del paciente");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paciente = cargarDatosPaciente();
@@ -108,6 +110,7 @@ public class DatosPaciente {
 		frame.getContentPane().add(lblDniPaciente);
 
 		textDNI = new JTextField();
+		textDNI.setToolTipText("DNI del paciente. Hasta 8 cifras");
 		textDNI.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textDNI.setColumns(10);
 		textDNI.setBounds(267, 172, 200, 32);
@@ -119,6 +122,7 @@ public class DatosPaciente {
 		frame.getContentPane().add(lblTelefonoPaciente);
 
 		textTelefono = new JTextField();
+		textTelefono.setToolTipText("Tel\u00E9fono del paciente. Hasta 25 caracteres");
 		textTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textTelefono.setColumns(10);
 		textTelefono.setBounds(267, 220, 200, 32);
@@ -140,6 +144,7 @@ public class DatosPaciente {
 		frame.getContentPane().add(lblN);
 
 		textDireccion = new JTextField();
+		textDireccion.setToolTipText("Direcci\u00F3n del paciente. Hasta 25 caracteres");
 		textDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textDireccion.setColumns(10);
 		textDireccion.setBounds(267, 321, 200, 32);

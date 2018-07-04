@@ -101,6 +101,7 @@ public class SituacionPaciente {
 		frame.getContentPane().add(textArea);
 
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setToolTipText("Guardar situacion del paciente");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (esDatosCompletos()) {
@@ -123,6 +124,7 @@ public class SituacionPaciente {
 		frame.getContentPane().add(btnCancelar);
 
 		JButton btnFiltroMedico = new JButton("...");
+		btnFiltroMedico.setToolTipText("Filtrar listado");
 		btnFiltroMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filtrarMedico(textMedico.getText());
@@ -132,6 +134,7 @@ public class SituacionPaciente {
 		frame.getContentPane().add(btnFiltroMedico);
 
 		textMedico = new JTextField();
+		textMedico.setToolTipText("Ingrese el nombre para filtrar listado");
 		textMedico.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textMedico.setColumns(10);
 		textMedico.setBounds(286, 201, 219, 26);
@@ -161,6 +164,7 @@ public class SituacionPaciente {
 		frame.getContentPane().add(lblBusqueUnPaciente);
 
 		textPaciente = new JTextField();
+		textPaciente.setToolTipText("Ingrese el nombre para filtrar listado");
 		textPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textPaciente.setColumns(10);
 		textPaciente.setBounds(286, 116, 219, 26);
@@ -179,6 +183,7 @@ public class SituacionPaciente {
 		});
 
 		JButton btnFiltroPaciente = new JButton("...");
+		btnFiltroPaciente.setToolTipText("Filtrar listado");
 		btnFiltroPaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filtrarPaciente(textPaciente.getText());

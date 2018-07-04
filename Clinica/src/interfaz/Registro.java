@@ -2,6 +2,8 @@ package interfaz;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -28,6 +30,7 @@ public class Registro extends JFrame {
 	private JButton btnCancelar;
 	private Usuario usuario;
 	private MenuPrincipal menu;
+	protected int limiteTexto = 12;
 
 	public Registro(MenuPrincipal menu) {
 		this.menu = menu;
@@ -64,17 +67,20 @@ public class Registro extends JFrame {
 		});
 
 		txtPassword = new JPasswordField();
+		txtPassword.setToolTipText("Contraseña de usuario. Hasta 12 caracteres");
 		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtPassword.setBounds(122, 92, 350, 20);
 		frmRegistro.getContentPane().add(txtPassword);
 
 		txtUsuario = new JTextField();
+		txtUsuario.setToolTipText("Nombre de usuario. Hasta 12 caracteres");
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtUsuario.setColumns(10);
 		txtUsuario.setBounds(122, 64, 350, 20);
 		frmRegistro.getContentPane().add(txtUsuario);
 
 		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setToolTipText("Registrar al usuario en el sistema");
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +98,44 @@ public class Registro extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancelar();
+			}
+		});
+		
+		txtUsuario.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (txtUsuario.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		txtPassword.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (txtPassword.getText().length() == limiteTexto )
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
 			}
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));

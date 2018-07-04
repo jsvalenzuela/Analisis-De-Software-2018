@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -38,6 +38,7 @@ public class Login extends JFrame {
 	private Usuario usuario;
 	private UsuarioRepository usuarioRepo;
 	private JFrame frame;
+	private int limiteTexto = 12;
 
 	/**
 	 * Launch the application.
@@ -93,12 +94,14 @@ public class Login extends JFrame {
 		contentPane.add(lblContrasena);
 
 		txtUsuario = new JTextField();
+		txtUsuario.setToolTipText("Nombre de usuario. Hasta 12 caracteres");
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtUsuario.setBounds(150, 122, 353, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		tpContrasena = new JPasswordField();
+		tpContrasena.setToolTipText("Contrase\u00F1a de usuario. Hasta 12 caracteres");
 		tpContrasena.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tpContrasena.addKeyListener(new KeyAdapter() {
 			@Override
@@ -117,6 +120,7 @@ public class Login extends JFrame {
 		contentPane.add(tpContrasena);
 
 		btnIngresar = new JButton("Ingresar");
+		btnIngresar.setToolTipText("Ingresar al sistema");
 		btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnIngresar.setBounds(177, 202, 140, 33);
 		btnIngresar.addActionListener(new ActionListener() {
@@ -128,6 +132,44 @@ public class Login extends JFrame {
 		});
 
 		contentPane.add(btnIngresar);
+
+		txtUsuario.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (txtUsuario.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		tpContrasena.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+				if (tpContrasena.getText().length() == limiteTexto)
+					e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -185,7 +227,7 @@ public class Login extends JFrame {
 	public void visible(boolean value) {
 		this.setVisible(value);
 	}
-	
+
 	public void closeApp() {
 		System.exit(NORMAL);
 	}
