@@ -6,7 +6,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -100,10 +99,6 @@ public class InformePaciente extends JFrame {
 		});
 		btnAtrs.setBounds(234, 534, 115, 36);
 		contentPane.add(btnAtrs);
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
-
-		table.setBounds(25, 281, 498, 228);
-		contentPane.add(table);
 
 		JButton button = new JButton("...");
 		button.addActionListener(new ActionListener() {
@@ -136,6 +131,12 @@ public class InformePaciente extends JFrame {
 		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		label.setBounds(10, 71, 175, 31);
 		contentPane.add(label);
+
+	    JScrollPane scrollPane = new JScrollPane();
+	    scrollPane.setBounds(26, 294, 491, 197);
+	    contentPane.add(scrollPane);
+	    scrollPane.setViewportView(table);
+	
 	}
 
 	private void agregaDatosATabla(String codMedico) {
