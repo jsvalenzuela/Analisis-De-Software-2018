@@ -66,7 +66,7 @@ public class Lanzador {
 		JLabel lblBienvenidoAlTest = new JLabel("Bienvenido al Test de Calidad");
 		lblBienvenidoAlTest.setForeground(new Color(0, 128, 128));
 		lblBienvenidoAlTest.setFont(new Font("Tahoma", Font.BOLD, 35));
-		lblBienvenidoAlTest.setBounds(41, 41, 534, 113);
+		lblBienvenidoAlTest.setBounds(47, 64, 517, 113);
 		frame.getContentPane().add(lblBienvenidoAlTest);
 		
 		JButton btnIniciar = new JButton("Iniciar");
@@ -79,7 +79,7 @@ public class Lanzador {
 		});
 		btnIniciar.setBackground(new Color(0, 128, 128));
 		btnIniciar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnIniciar.setBounds(204, 218, 170, 61);
+		btnIniciar.setBounds(218, 216, 170, 61);
 		frame.getContentPane().add(btnIniciar);
 	}
 }

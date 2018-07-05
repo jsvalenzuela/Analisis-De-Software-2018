@@ -206,10 +206,10 @@ public class Puntaje {
 		Double valorUno;
 		Double valorDos;
 		
-		if(valorAdaptabilidad.equals(new Integer(2))) {
+		if(valorAdaptabilidad.intValue() >= 3) {
 			puntajeAdaptabilidad = Constantes.BUENA;
 		} else {
-			if(valorAdaptabilidad.equals(new Integer(0))) {
+			if(valorAdaptabilidad.intValue() == 1) {
 				puntajeAdaptabilidad = Constantes.MALA;
 			} else {
 				puntajeAdaptabilidad = Constantes.REGULAR;

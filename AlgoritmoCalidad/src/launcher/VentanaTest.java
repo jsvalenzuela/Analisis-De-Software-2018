@@ -25,6 +25,7 @@ import javax.swing.SpinnerNumberModel;
 import algoritmo.Puntaje;
 
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class VentanaTest {
 
@@ -171,7 +172,10 @@ public class VentanaTest {
 		panelTres.add(lblResultado);
 		
 		JLabel lblResultado_1 = new JLabel("");
-		lblResultado_1.setBounds(279, 584, 487, 158);
+		lblResultado_1.setForeground(Color.BLUE);
+		lblResultado_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResultado_1.setFont(new Font("Tahoma", Font.BOLD, 40));
+		lblResultado_1.setBounds(15, 584, 970, 158);
 		panelTres.add(lblResultado_1);
 		
 		JLabel label_2 = new JLabel("Mantenibilidad");
@@ -374,14 +378,13 @@ public class VentanaTest {
 				}
 				
 				
-				if(!valorCapacidadCodigo.equals(new Integer(-1)) && !valorComplejidad.equals(new Integer(-1)))
+				if(!valorCapacidadCodigo.equals(new Integer(-1)) && !valorComplejidad.equals(new Integer(-1)) && !valorInstabilidad.equals(new Integer(-1))) {
 					puntaje.calcularPuntajeMantenibilidad(valorCapacidadCodigo, valorComplejidad, valorEstabilidad);
-				
-				if(!valorInstabilidad.equals(new Integer(-1)))
 					puntaje.calcularPuntajePortabilidad(valorAdaptabilidad, valorInstabilidad);
-				
-				cl.next(panelPrincipal);
-				progressBar.setValue(66);
+					
+					cl.next(panelPrincipal);
+					progressBar.setValue(66);
+				}
 			}
 		});
 		btnSiguiente_1.setBounds(437, 783, 115, 41);
@@ -559,18 +562,17 @@ public class VentanaTest {
 						} else {
 							JOptionPane.showMessageDialog(null, "Elija una opción en Comportamiento", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-							
 					}
 				}
 				
 				puntaje.calcularPuntajeFuncionabilidad(valorSeguridad, valorExactitud);
 				puntaje.calcularPuntajeFiabilidad(valorTolerancia, valorRecuperacion);
 				
-				if(!valorRecursos.equals(new Integer(-1)) && !valorComportamiento.equals(new Integer(-1)))
+				if(!valorRecursos.equals(new Integer(-1)) && !valorComportamiento.equals(new Integer(-1))) {
 					puntaje.calcularPuntajeEficiencia(valorRecursos, valorComportamiento);
-				
-				cl.next(panelPrincipal);
-				progressBar.setValue(33);
+					cl.next(panelPrincipal);
+					progressBar.setValue(33);
+				}
 			}
 		});
 		btnSiguiente.setBounds(428, 791, 115, 40);
@@ -648,20 +650,25 @@ public class VentanaTest {
 					}
 				}
 				
-				if(!valorOperado.equals(new Integer(-1)))
+				if(!valorOperado.equals(new Integer(-1))) {
 					puntaje.calcularPuntajeUsabilidad(valorCapacidadAtendido, valorOperado, valorAtractivo);
-				
-				progressBar.setValue(100);
-				
-				if(puntaje.getAlgoritmo().calcularResultadoFinal().equals(new Integer(1)))
-					lblResultado_1.setText("Satisfactorio");
-				
-				if(puntaje.getAlgoritmo().calcularResultadoFinal().equals(new Integer(2)))
-					lblResultado_1.setText("Aceptable");
-				
-				if(puntaje.getAlgoritmo().calcularResultadoFinal().equals(new Integer(3)))
-					lblResultado_1.setText("No Satisfactorio");
-				
+					progressBar.setValue(100);
+					
+					if(puntaje.getAlgoritmo().calcularResultadoFinal().equals(new Integer(1))) {
+						lblResultado_1.setText("Satisfactorio");
+						lblResultado_1.setForeground(Color.GREEN);
+					}	
+					
+					if(puntaje.getAlgoritmo().calcularResultadoFinal().equals(new Integer(2))) {
+						lblResultado_1.setText("Aceptable");
+						lblResultado_1.setForeground(Color.BLUE);
+					}
+					
+					if(puntaje.getAlgoritmo().calcularResultadoFinal().equals(new Integer(3))) {
+						lblResultado_1.setText("No Satisfactorio");
+						lblResultado_1.setForeground(Color.RED);
+					}
+				}
 			}
 		});
 		btnCalcular.setBounds(439, 458, 115, 42);
