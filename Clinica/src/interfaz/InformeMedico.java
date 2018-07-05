@@ -7,8 +7,11 @@ import javax.swing.border.EmptyBorder;
 import data.MedicoRepository;
 import entidades.Medico;
 import utilities.Log;
+import utilities.Utils;
 
 import javax.swing.JLabel;
+
+import java.awt.Desktop;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -19,6 +22,8 @@ import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -124,6 +129,20 @@ public class InformeMedico extends JFrame {
 		});
 		btnFiltrar.setBounds(560, 95, 30, 30);
 		contentPane.add(btnFiltrar);
+		
+		JButton btnAyuda = new JButton("?");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File file = new File(Utils.obtenerUrlAyuda());
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					Log.getInstance().error(e.getMessage());
+				}
+			}
+		});
+		btnAyuda.setBounds(581, 0, 43, 23);
+		this.getContentPane().add(btnAyuda);
 	}
 
 	private void agregarEspecialidades(String codMedico) {

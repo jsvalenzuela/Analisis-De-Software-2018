@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +23,10 @@ import javax.swing.border.EmptyBorder;
 import data.UsuarioRepository;
 import entidades.Usuario;
 import utilities.Log;
+import utilities.Utils;
+
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
 
@@ -180,6 +185,20 @@ public class Login extends JFrame {
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCancelar.setBounds(363, 202, 140, 33);
 		contentPane.add(btnCancelar);
+		
+		JButton btnAyuda = new JButton("?");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File file = new File(Utils.obtenerUrlAyuda());
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					Log.getInstance().error(e.getMessage());
+				}
+			}
+		});
+		btnAyuda.setBounds(565, 0, 43, 23);
+		contentPane.add(btnAyuda);
 
 		visible(true);
 

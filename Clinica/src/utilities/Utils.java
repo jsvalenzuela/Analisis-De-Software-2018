@@ -48,4 +48,8 @@ public class Utils {
 		return true;
 	}
 
+	public static String obtenerUrlAyuda() {
+		return "resource//Ayuda.chm";
+	}
+
 }

@@ -4,12 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.awt.Desktop;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import data.PacienteRepository;
 import entidades.Paciente;
+import utilities.Log;
 import utilities.Utils;
 
 import java.awt.event.ActionListener;
@@ -18,6 +20,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 
 public class DatosPaciente {
 
@@ -156,6 +160,20 @@ public class DatosPaciente {
 				new DefaultComboBoxModel<String>(new String[] { "A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+" }));
 		comboTipoSangre.setBounds(267, 278, 200, 26);
 		frame.getContentPane().add(comboTipoSangre);
+		
+		JButton btnAyuda = new JButton("?");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File file = new File(Utils.obtenerUrlAyuda());
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					Log.getInstance().error(e.getMessage());
+				}
+			}
+		});
+		btnAyuda.setBounds(581, 0, 43, 23);
+		frame.getContentPane().add(btnAyuda);
 		addListeners();
 	}
 

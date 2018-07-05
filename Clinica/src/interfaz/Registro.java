@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +18,10 @@ import javax.swing.JTextField;
 
 import data.UsuarioRepository;
 import entidades.Usuario;
+import utilities.Log;
+import utilities.Utils;
+
+import java.awt.Desktop;
 import java.awt.Font;
 
 public class Registro extends JFrame {
@@ -142,6 +148,21 @@ public class Registro extends JFrame {
 		btnCancelar.setBounds(283, 143, 128, 31);
 		frmRegistro.getContentPane().add(btnCancelar);
 		frmRegistro.setVisible(true);
+		
+		JButton btnAyuda = new JButton("?");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File file = new File(Utils.obtenerUrlAyuda());
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					Log.getInstance().error(e.getMessage());
+				}
+			}
+		});
+		btnAyuda.setBounds(472, 0, 43, 23);
+		frmRegistro.getContentPane().add(btnAyuda);
+		
 	}
 
 	private void registrar(Usuario user) {

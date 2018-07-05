@@ -2,9 +2,16 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import utilities.Log;
+import utilities.Utils;
+
+import java.awt.Desktop;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class MenuInformes {
@@ -72,6 +79,20 @@ public class MenuInformes {
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAtras.setBounds(146, 329, 307, 50);
 		frame.getContentPane().add(btnAtras);
+		
+		JButton btnAyuda = new JButton("?");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File file = new File(Utils.obtenerUrlAyuda());
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					Log.getInstance().error(e.getMessage());
+				}
+			}
+		});
+		btnAyuda.setBounds(581, 0, 43, 23);
+		frame.getContentPane().add(btnAyuda);
 
 	}
 

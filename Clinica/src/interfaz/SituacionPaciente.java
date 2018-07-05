@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.awt.Desktop;
 import java.awt.Font;
 
 import data.DiagnosticoRepository;
@@ -13,6 +14,7 @@ import entidades.Diagnostico;
 import entidades.Medico;
 import entidades.Paciente;
 import utilities.Log;
+import utilities.Utils;
 
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
@@ -22,6 +24,8 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -198,6 +202,20 @@ public class SituacionPaciente {
 				frame.setVisible(false);
 			}
 		});
+		
+		JButton btnAyuda = new JButton("?");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File file = new File(Utils.obtenerUrlAyuda());
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					Log.getInstance().error(e.getMessage());
+				}
+			}
+		});
+		btnAyuda.setBounds(581, 0, 43, 23);
+		frame.getContentPane().add(btnAyuda);
 	}
 
 	private boolean esDatosCompletos() {

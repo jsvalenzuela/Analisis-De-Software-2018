@@ -4,17 +4,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.awt.Desktop;
 import java.awt.Font;
 import javax.swing.JTextField;
 
 import data.MedicoRepository;
 import entidades.Medico;
+import utilities.Log;
 import utilities.Utils;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class DatosMedico {
@@ -138,6 +142,21 @@ public class DatosMedico {
 		textTelefono.setColumns(10);
 		textTelefono.setBounds(321, 263, 181, 30);
 		frame.getContentPane().add(textTelefono);
+		
+		
+		JButton btnAyuda = new JButton("?");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File file = new File(Utils.obtenerUrlAyuda());
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					Log.getInstance().error(e.getMessage());
+				}
+			}
+		});
+		btnAyuda.setBounds(581, 0, 43, 23);
+		frame.getContentPane().add(btnAyuda);
 		addListeners();
 	}
 
