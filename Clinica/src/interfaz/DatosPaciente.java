@@ -22,6 +22,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class DatosPaciente {
 
@@ -51,6 +53,7 @@ public class DatosPaciente {
 	private void initialize() {
 		this.pacienteRepo = new PacienteRepository();
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(224, 255, 255));
 		frame.setBounds(100, 100, 640, 549);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -59,24 +62,29 @@ public class DatosPaciente {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblDatosDePacientes = new JLabel("Datos de Pacientes");
-		lblDatosDePacientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDatosDePacientes.setBounds(180, 16, 215, 36);
+		lblDatosDePacientes.setForeground(new Color(0, 0, 153));
+		lblDatosDePacientes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDatosDePacientes.setFont(new Font("Verdana", Font.BOLD, 30));
+		lblDatosDePacientes.setBounds(114, 56, 379, 36);
 		frame.getContentPane().add(lblDatosDePacientes);
 
 		JLabel lblNombrePaciente = new JLabel("Nombre Paciente");
-		lblNombrePaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombrePaciente.setBounds(52, 117, 179, 42);
+		lblNombrePaciente.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblNombrePaciente.setBounds(75, 114, 197, 42);
 		frame.getContentPane().add(lblNombrePaciente);
 
 		textNombre = new JTextField();
 		textNombre.setToolTipText("Nombre del paciente. Hasta 25 caracteres separados por un caracter de espacio cada palabra");
 
 		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textNombre.setBounds(267, 124, 200, 32);
+		textNombre.setBounds(308, 121, 200, 32);
 		frame.getContentPane().add(textNombre);
 		textNombre.setColumns(10);
 
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnGuardar.setBackground(new Color(204, 255, 204));
+		btnGuardar.setForeground(new Color(0, 0, 153));
 		btnGuardar.setToolTipText("Guadar los datos del paciente");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -94,10 +102,13 @@ public class DatosPaciente {
 				}
 			}
 		});
-		btnGuardar.setBounds(114, 430, 115, 36);
+		btnGuardar.setBounds(75, 429, 171, 42);
 		frame.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(0, 0, 153));
+		btnCancelar.setBackground(new Color(204, 255, 204));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnCancelar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -105,41 +116,41 @@ public class DatosPaciente {
 				frame.setVisible(false);
 			}
 		});
-		btnCancelar.setBounds(352, 430, 115, 36);
+		btnCancelar.setBounds(354, 429, 154, 42);
 		frame.getContentPane().add(btnCancelar);
 
 		JLabel lblDniPaciente = new JLabel("DNI Paciente");
-		lblDniPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDniPaciente.setBounds(52, 169, 149, 36);
+		lblDniPaciente.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblDniPaciente.setBounds(75, 166, 197, 36);
 		frame.getContentPane().add(lblDniPaciente);
 
 		textDNI = new JTextField();
 		textDNI.setToolTipText("DNI del paciente. Hasta 8 cifras");
 		textDNI.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textDNI.setColumns(10);
-		textDNI.setBounds(267, 172, 200, 32);
+		textDNI.setBounds(308, 169, 200, 32);
 		frame.getContentPane().add(textDNI);
 
 		JLabel lblTelefonoPaciente = new JLabel("Telefono Paciente");
-		lblTelefonoPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTelefonoPaciente.setBounds(52, 216, 169, 36);
+		lblTelefonoPaciente.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblTelefonoPaciente.setBounds(75, 213, 197, 36);
 		frame.getContentPane().add(lblTelefonoPaciente);
 
 		textTelefono = new JTextField();
 		textTelefono.setToolTipText("Tel\u00E9fono del paciente. Hasta 25 caracteres");
 		textTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textTelefono.setColumns(10);
-		textTelefono.setBounds(267, 220, 200, 32);
+		textTelefono.setBounds(308, 217, 200, 32);
 		frame.getContentPane().add(textTelefono);
 
 		JLabel lblTipoDeSangre = new JLabel("Tipo de Sangre");
-		lblTipoDeSangre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTipoDeSangre.setBounds(52, 274, 169, 31);
+		lblTipoDeSangre.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblTipoDeSangre.setBounds(75, 271, 197, 31);
 		frame.getContentPane().add(lblTipoDeSangre);
 
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
-		lblDireccin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDireccin.setBounds(52, 321, 115, 32);
+		lblDireccin.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblDireccin.setBounds(75, 318, 197, 32);
 		frame.getContentPane().add(lblDireccin);
 
 		JLabel lblN = new JLabel("N\u00B0");
@@ -151,14 +162,15 @@ public class DatosPaciente {
 		textDireccion.setToolTipText("Direcci\u00F3n del paciente. Hasta 25 caracteres");
 		textDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textDireccion.setColumns(10);
-		textDireccion.setBounds(267, 321, 200, 32);
+		textDireccion.setBounds(308, 318, 200, 32);
 		frame.getContentPane().add(textDireccion);
 
 		comboTipoSangre = new JComboBox<String>();
+		comboTipoSangre.setBackground(new Color(255, 153, 153));
 		comboTipoSangre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoSangre.setModel(
 				new DefaultComboBoxModel<String>(new String[] { "A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+" }));
-		comboTipoSangre.setBounds(267, 278, 200, 26);
+		comboTipoSangre.setBounds(308, 275, 200, 26);
 		frame.getContentPane().add(comboTipoSangre);
 		
 		JButton btnAyuda = new JButton("?");
@@ -173,6 +185,8 @@ public class DatosPaciente {
 			}
 		});
 		btnAyuda.setBounds(581, 0, 43, 23);
+		btnAyuda.setBackground(new Color(204, 255, 204));
+		btnAyuda.setForeground(new Color(0, 0, 153));
 		frame.getContentPane().add(btnAyuda);
 		addListeners();
 	}

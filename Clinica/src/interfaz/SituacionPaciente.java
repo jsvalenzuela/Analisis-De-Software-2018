@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class SituacionPaciente {
 
@@ -58,6 +60,7 @@ public class SituacionPaciente {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(224, 255, 255));
 		pacienteRepo = new PacienteRepository();
 		medicoRepo = new MedicoRepository();
 		diagnosticoRepo = new DiagnosticoRepository();
@@ -69,23 +72,25 @@ public class SituacionPaciente {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblSituacinDelPaciente = new JLabel("Situaci\u00F3n del Paciente");
-		lblSituacinDelPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblSituacinDelPaciente.setBounds(182, 16, 249, 38);
+		lblSituacinDelPaciente.setForeground(new Color(0, 0, 153));
+		lblSituacinDelPaciente.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSituacinDelPaciente.setFont(new Font("Verdana", Font.BOLD, 30));
+		lblSituacinDelPaciente.setBounds(69, 16, 499, 38);
 		frame.getContentPane().add(lblSituacinDelPaciente);
 
 		JLabel lblCodigoPaciente = new JLabel("Paciente");
-		lblCodigoPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCodigoPaciente.setBounds(69, 158, 183, 30);
+		lblCodigoPaciente.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblCodigoPaciente.setBounds(31, 158, 252, 30);
 		frame.getContentPane().add(lblCodigoPaciente);
 
 		JLabel lblCdigoMdico = new JLabel("M\u00E9dico");
-		lblCdigoMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCdigoMdico.setBounds(69, 255, 150, 30);
+		lblCdigoMdico.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblCdigoMdico.setBounds(31, 255, 252, 30);
 		frame.getContentPane().add(lblCdigoMdico);
 
 		JLabel lblDiagnosticoDelMdico = new JLabel("Diagnostico del M\u00E9dico");
-		lblDiagnosticoDelMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDiagnosticoDelMdico.setBounds(69, 289, 214, 30);
+		lblDiagnosticoDelMdico.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblDiagnosticoDelMdico.setBounds(31, 289, 252, 30);
 		frame.getContentPane().add(lblDiagnosticoDelMdico);
 
 		comboPacientes = new JComboBox<Paciente>();
@@ -101,11 +106,12 @@ public class SituacionPaciente {
 		filtrarMedico("");// Trae todos los medicos
 
 		textArea = new JTextArea();
-		textArea.setBounds(69, 358, 434, 109);
+		textArea.setBounds(31, 358, 526, 109);
 		frame.getContentPane().add(textArea);
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setToolTipText("Guardar situacion del paciente");
+		btnGuardar.setBackground(new Color(204, 255, 204));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (esDatosCompletos()) {
@@ -120,15 +126,17 @@ public class SituacionPaciente {
 				}
 			}
 		});
-		btnGuardar.setBounds(69, 512, 130, 36);
+		btnGuardar.setBounds(69, 498, 161, 50);
 		frame.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(373, 512, 130, 36);
+		btnCancelar.setBackground(new Color(204, 255, 204));
+		btnCancelar.setBounds(353, 498, 150, 50);
 		frame.getContentPane().add(btnCancelar);
 
 		JButton btnFiltroMedico = new JButton("...");
 		btnFiltroMedico.setToolTipText("Filtrar listado");
+		btnFiltroMedico.setBackground(new Color(204, 255, 204));
 		btnFiltroMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filtrarMedico(textMedico.getText());
@@ -158,13 +166,13 @@ public class SituacionPaciente {
 
 		
 		JLabel label = new JLabel("Busque un M\u00E9dico:");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label.setBounds(69, 199, 175, 31);
+		label.setFont(new Font("Verdana", Font.PLAIN, 18));
+		label.setBounds(31, 199, 252, 31);
 		frame.getContentPane().add(label);
 
 		JLabel lblBusqueUnPaciente = new JLabel("Busque un Paciente");
-		lblBusqueUnPaciente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblBusqueUnPaciente.setBounds(69, 114, 175, 31);
+		lblBusqueUnPaciente.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblBusqueUnPaciente.setBounds(31, 114, 252, 31);
 		frame.getContentPane().add(lblBusqueUnPaciente);
 
 		textPaciente = new JTextField();
@@ -188,6 +196,7 @@ public class SituacionPaciente {
 
 		JButton btnFiltroPaciente = new JButton("...");
 		btnFiltroPaciente.setToolTipText("Filtrar listado");
+		btnFiltroPaciente.setBackground(new Color(204, 255, 204));
 		btnFiltroPaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filtrarPaciente(textPaciente.getText());
@@ -215,6 +224,8 @@ public class SituacionPaciente {
 			}
 		});
 		btnAyuda.setBounds(581, 0, 43, 23);
+		btnAyuda.setBackground(new Color(204, 255, 204));
+		btnAyuda.setForeground(new Color(0, 0, 153));
 		frame.getContentPane().add(btnAyuda);
 	}
 

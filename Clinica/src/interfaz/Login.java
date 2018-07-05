@@ -28,7 +28,6 @@ import utilities.Utils;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.EventQueue;
-import java.awt.SystemColor;
 
 public class Login extends JFrame {
 
@@ -76,32 +75,33 @@ public class Login extends JFrame {
 		setLogin(this);
 		setBounds(100, 100, 624, 346);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.menu);
+		contentPane.setBackground(new Color(224, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblLogin.setBounds(150, 22, 87, 31);
+		JLabel lblLogin = new JLabel("Login : Ingreso al sistema");
+		lblLogin.setForeground(new Color(0, 0, 153));
+		lblLogin.setFont(new Font("Verdana", Font.BOLD, 30));
+		lblLogin.setBounds(93, 37, 452, 47);
 		contentPane.add(lblLogin);
 
 		lblUsuario = new JLabel("Usuario: ");
 		lblUsuario.setForeground(Color.BLACK);
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblUsuario.setFont(new Font("Verdana", Font.BOLD, 18));
 
-		lblUsuario.setBounds(22, 122, 96, 20);
+		lblUsuario.setBounds(56, 122, 140, 20);
 		contentPane.add(lblUsuario);
 		lblContrasena = new JLabel("Contrase\u00F1a: ");
 		lblContrasena.setForeground(Color.BLACK);
-		lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblContrasena.setBounds(22, 153, 119, 20);
+		lblContrasena.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblContrasena.setBounds(56, 153, 140, 20);
 		contentPane.add(lblContrasena);
 
 		txtUsuario = new JTextField();
 		txtUsuario.setToolTipText("Nombre de usuario. Hasta 12 caracteres");
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtUsuario.setBounds(150, 122, 353, 20);
+		txtUsuario.setBounds(206, 122, 297, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
@@ -121,13 +121,15 @@ public class Login extends JFrame {
 					}
 			}
 		});
-		tpContrasena.setBounds(150, 153, 353, 20);
+		tpContrasena.setBounds(206, 153, 297, 20);
 		contentPane.add(tpContrasena);
 
 		btnIngresar = new JButton("Ingresar");
 		btnIngresar.setToolTipText("Ingresar al sistema");
-		btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnIngresar.setBounds(177, 202, 140, 33);
+		btnIngresar.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnIngresar.setBackground(new Color(204, 255, 204));
+		btnIngresar.setForeground(new Color(0, 0, 153));
+		btnIngresar.setBounds(112, 215, 160, 47);
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (camposCompletos()) {
@@ -177,13 +179,15 @@ public class Login extends JFrame {
 		});
 
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBackground(new Color(204, 255, 204));
+		btnCancelar.setForeground(new Color(0, 0, 153));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cancelar();
 			}
 		});
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnCancelar.setBounds(363, 202, 140, 33);
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnCancelar.setBounds(343, 215, 160, 47);
 		contentPane.add(btnCancelar);
 		
 		JButton btnAyuda = new JButton("?");
@@ -198,6 +202,8 @@ public class Login extends JFrame {
 			}
 		});
 		btnAyuda.setBounds(565, 0, 43, 23);
+		btnAyuda.setBackground(new Color(204, 255, 204));
+		btnAyuda.setForeground(new Color(0, 0, 153));
 		contentPane.add(btnAyuda);
 
 		visible(true);

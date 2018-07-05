@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class MenuPrincipal {
 
@@ -34,6 +36,7 @@ public class MenuPrincipal {
 	private void initialize() {
 		this.menu = this;
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(224, 255, 255));
 		frame.setBounds(100, 100, 640, 580);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Sistema de Control de Pacientes - Clínica Nuevo Espiritu");
@@ -42,11 +45,15 @@ public class MenuPrincipal {
 		frame.setVisible(true);
 
 		JLabel lblMenuPrincipal = new JLabel("Menu Principal");
-		lblMenuPrincipal.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblMenuPrincipal.setBounds(210, 16, 176, 38);
+		lblMenuPrincipal.setForeground(new Color(0, 0, 153));
+		lblMenuPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMenuPrincipal.setFont(new Font("Verdana", Font.BOLD, 30));
+		lblMenuPrincipal.setBounds(103, 16, 379, 38);
 		frame.getContentPane().add(lblMenuPrincipal);
 
 		JButton btnIngresoDeDatos = new JButton("Ingreso de Datos");
+		btnIngresoDeDatos.setForeground(new Color(0, 0, 153));
+		btnIngresoDeDatos.setBackground(new Color(204, 255, 204));
 		btnIngresoDeDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new MenuIngresoPacientes(menu);
@@ -58,6 +65,8 @@ public class MenuPrincipal {
 		frame.getContentPane().add(btnIngresoDeDatos);
 
 		JButton btnInformes = new JButton("Informes");
+		btnInformes.setForeground(new Color(0, 0, 153));
+		btnInformes.setBackground(new Color(204, 255, 204));
 		btnInformes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new MenuInformes(menu);
@@ -69,6 +78,8 @@ public class MenuPrincipal {
 		frame.getContentPane().add(btnInformes);
 
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setForeground(new Color(0, 0, 153));
+		btnSalir.setBackground(new Color(204, 255, 204));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
@@ -80,6 +91,8 @@ public class MenuPrincipal {
 		frame.getContentPane().add(btnSalir);
 
 		JButton btnRegistro = new JButton("Registro de Usuario");
+		btnRegistro.setForeground(new Color(0, 0, 153));
+		btnRegistro.setBackground(new Color(204, 255, 204));
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Registro(menu);
@@ -103,6 +116,8 @@ public class MenuPrincipal {
 			}
 		});
 		btnAyuda.setBounds(581, 0, 43, 23);
+		btnAyuda.setBackground(new Color(204, 255, 204));
+		btnAyuda.setForeground(new Color(0, 0, 153));
 		frame.getContentPane().add(btnAyuda);
 	}
 

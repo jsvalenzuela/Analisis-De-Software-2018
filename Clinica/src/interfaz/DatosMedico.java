@@ -20,6 +20,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class DatosMedico {
 
@@ -47,6 +48,8 @@ public class DatosMedico {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(204, 255, 255));
+		frame.getContentPane().setForeground(Color.ORANGE);
 		medicoRepo = new MedicoRepository();
 		frame.setBounds(100, 100, 640, 532);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,18 +59,19 @@ public class DatosMedico {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblDatosDeMdico = new JLabel("Datos del M\u00E9dico");
-		lblDatosDeMdico.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblDatosDeMdico.setBounds(190, 16, 198, 42);
+		lblDatosDeMdico.setForeground(new Color(0, 0, 153));
+		lblDatosDeMdico.setFont(new Font("Verdana", Font.BOLD, 30));
+		lblDatosDeMdico.setBounds(164, 55, 312, 42);
 		frame.getContentPane().add(lblDatosDeMdico);
 
 		JLabel lblNombreDelMdico = new JLabel("Nombre del M\u00E9dico");
-		lblNombreDelMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreDelMdico.setBounds(50, 126, 176, 30);
+		lblNombreDelMdico.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblNombreDelMdico.setBounds(72, 128, 239, 30);
 		frame.getContentPane().add(lblNombreDelMdico);
 
 		JLabel lblEspecializacinDelMdico = new JLabel("Especialidad del M\u00E9dico");
-		lblEspecializacinDelMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblEspecializacinDelMdico.setBounds(48, 325, 241, 30);
+		lblEspecializacinDelMdico.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblEspecializacinDelMdico.setBounds(70, 327, 241, 30);
 		frame.getContentPane().add(lblEspecializacinDelMdico);
 
 		textNombre = new JTextField();
@@ -86,6 +90,8 @@ public class DatosMedico {
 		textEspecialidad.setColumns(10);
 
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setForeground(new Color(0, 0, 153));
+		btnGuardar.setBackground(new Color(204, 255, 204));
 		btnGuardar.setToolTipText("Guadar los datooos del m\u00E9dico");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -104,36 +110,38 @@ public class DatosMedico {
 				}
 			}
 		});
-		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnGuardar.setBounds(68, 412, 115, 36);
+		btnGuardar.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnGuardar.setBounds(111, 414, 165, 36);
 		frame.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(0, 0, 153));
+		btnCancelar.setBackground(new Color(204, 255, 204));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				menu.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnCancelar.setBounds(361, 412, 115, 36);
+		btnCancelar.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnCancelar.setBounds(349, 414, 153, 36);
 		frame.getContentPane().add(btnCancelar);
 
 		JLabel lblMatrculaDelMdico = new JLabel("Matr\u00EDcula del M\u00E9dico");
-		lblMatrculaDelMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblMatrculaDelMdico.setBounds(50, 202, 198, 30);
+		lblMatrculaDelMdico.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblMatrculaDelMdico.setBounds(72, 192, 206, 30);
 		frame.getContentPane().add(lblMatrculaDelMdico);
 
 		textMatricula = new JTextField();
 		textMatricula.setToolTipText("Matricula del m\u00E9dico. Hasta 6 cifras");
 		textMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textMatricula.setColumns(10);
-		textMatricula.setBounds(321, 204, 181, 30);
+		textMatricula.setBounds(321, 191, 181, 30);
 		frame.getContentPane().add(textMatricula);
 
 		JLabel lblTelefonoMdico = new JLabel("Tel\u00E9fono M\u00E9dico");
-		lblTelefonoMdico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTelefonoMdico.setBounds(48, 263, 241, 30);
+		lblTelefonoMdico.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblTelefonoMdico.setBounds(70, 265, 241, 30);
 		frame.getContentPane().add(lblTelefonoMdico);
 
 		textTelefono = new JTextField();
@@ -156,6 +164,8 @@ public class DatosMedico {
 			}
 		});
 		btnAyuda.setBounds(581, 0, 43, 23);
+		btnAyuda.setBackground(new Color(204, 255, 204));
+		btnAyuda.setForeground(new Color(0, 0, 153));
 		frame.getContentPane().add(btnAyuda);
 		addListeners();
 	}

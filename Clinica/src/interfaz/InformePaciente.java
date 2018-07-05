@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class InformePaciente extends JFrame {
@@ -59,17 +60,19 @@ public class InformePaciente extends JFrame {
 		setTitle("Sistema de Control de Pacientes - Clínica Nuevo Espiritu");
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(224, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblInformeDePacientes = new JLabel("Informe de Pacientes");
-		lblInformeDePacientes.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblInformeDePacientes.setBounds(181, 16, 242, 31);
+		lblInformeDePacientes.setForeground(new Color(0, 0, 153));
+		lblInformeDePacientes.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblInformeDePacientes.setBounds(156, 31, 367, 31);
 		contentPane.add(lblInformeDePacientes);
 
 		JLabel lblIngreseMatriculaDel = new JLabel("Seleccione el M\u00E9dico:");
-		lblIngreseMatriculaDel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblIngreseMatriculaDel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblIngreseMatriculaDel.setBounds(10, 124, 207, 31);
 		contentPane.add(lblIngreseMatriculaDel);
 
@@ -80,40 +83,49 @@ public class InformePaciente extends JFrame {
 		filtrarMedico("");// Trae todos los medicos
 
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setToolTipText("Realizar b\u00FAsqueda");
+		btnBuscar.setFont(new Font("Verdana", Font.BOLD, 16));
+		btnBuscar.setBackground(new Color(204, 255, 204));
+		btnBuscar.setForeground(new Color(0, 0, 153));
+		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String codMedico = obtenerCodigoMedico();
 				agregaDatosATabla(codMedico);
 			}
 		});
-		btnBuscar.setBounds(408, 181, 115, 29);
+		btnBuscar.setBounds(374, 166, 149, 36);
 		contentPane.add(btnBuscar);
 
 		JLabel lblPacientes = new JLabel("Pacientes");
-		lblPacientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPacientes.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPacientes.setBounds(25, 229, 115, 31);
 		contentPane.add(lblPacientes);
 
 		JButton btnAtrs = new JButton("Atr\u00E1s");
+		btnAtrs.setFont(new Font("Verdana", Font.BOLD, 11));
+		btnAtrs.setForeground(new Color(0, 0, 153));
+		btnAtrs.setBackground(new Color(204, 255, 204));
+		
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuInformes.setVisible(true);
 				setVisible(false);
 			}
 		});
-		btnAtrs.setBounds(234, 534, 115, 36);
+		btnAtrs.setBounds(380, 502, 143, 43);
 		contentPane.add(btnAtrs);
 
-		JButton button = new JButton("...");
-		button.setToolTipText("Filtrar listado");
-		button.addActionListener(new ActionListener() {
+		JButton btnFiltro = new JButton("...");
+		btnFiltro.setToolTipText("Filtrar listado");
+		btnFiltro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filtrarMedico(textMedico.getText());
 			}
 		});
-		button.setBounds(527, 71, 30, 30);
-		contentPane.add(button);
+		btnFiltro.setBounds(527, 71, 30, 30);
+		btnFiltro.setBackground(new Color(204, 255, 204));
+		btnFiltro.setForeground(new Color(0, 0, 153));
+		contentPane.add(btnFiltro);
 
 		textMedico = new JTextField();
 		textMedico.setToolTipText("Ingrese el nombre para filtrar listado");
@@ -135,12 +147,12 @@ public class InformePaciente extends JFrame {
 		});
 
 		JLabel label = new JLabel("Busque un Médico:");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setFont(new Font("Verdana", Font.PLAIN, 18));
 		label.setBounds(10, 71, 175, 31);
 		contentPane.add(label);
 
 	    JScrollPane scrollPane = new JScrollPane();
-	    scrollPane.setBounds(26, 294, 491, 197);
+	    scrollPane.setBounds(32, 293, 491, 197);
 	    contentPane.add(scrollPane);
 	    scrollPane.setViewportView(table);
 	    
@@ -156,6 +168,8 @@ public class InformePaciente extends JFrame {
 			}
 		});
 		btnAyuda.setBounds(581, 0, 43, 23);
+		btnAyuda.setBackground(new Color(204, 255, 204));
+		btnAyuda.setForeground(new Color(0, 0, 153));
 		this.getContentPane().add(btnAyuda);
 	
 	}
