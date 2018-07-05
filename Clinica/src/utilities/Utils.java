@@ -49,7 +49,7 @@ public class Utils {
 	}
 
 	public static String obtenerUrlAyuda() {
-		return "resource//Ayuda.chm";
+		return "Ayuda.chm";
 	}
 
 }
