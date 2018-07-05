@@ -7,15 +7,12 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.awt.event.ActionEvent;
 
 public class Lanzador {

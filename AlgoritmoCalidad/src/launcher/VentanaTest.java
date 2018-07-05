@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.SystemColor;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -122,7 +121,7 @@ public class VentanaTest {
 		lblNewLabel_1.setBounds(508, 101, 477, 20);
 		panelTres.add(lblNewLabel_1);
 		
-		JComboBox cbxCapacidadAtrctivo = new JComboBox();
+		JComboBox<String> cbxCapacidadAtrctivo = new JComboBox<>();
 		cbxCapacidadAtrctivo.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		cbxCapacidadAtrctivo.setBackground(new Color(245, 255, 250));
 		cbxCapacidadAtrctivo.setModel(new DefaultComboBoxModel(new String[] {"Seis o m\u00E1s pasos promedio", "Entre 3 y 5 pasos promedio ", "1 o 2 pasos promedio "}));
@@ -258,7 +257,7 @@ public class VentanaTest {
 		lblRealizeUnaPrueba.setBounds(216, 330, 455, 25);
 		panelDos.add(lblRealizeUnaPrueba);
 		
-		JComboBox cbxEstabilidad = new JComboBox();
+		JComboBox<String> cbxEstabilidad = new JComboBox<String>();
 		cbxEstabilidad.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		cbxEstabilidad.setBackground(new Color(245, 255, 250));
 		cbxEstabilidad.setModel(new DefaultComboBoxModel(new String[] {"El software presenta 10 o m\u00E1s errores por prueba.", "El software presenta entre 5 y 9 errores por prueba.", "El software presenta menos de 5 por prueba."}));
@@ -412,7 +411,7 @@ public class VentanaTest {
 		lblInicioDeSesin.setBounds(207, 139, 207, 20);
 		panelUno.add(lblInicioDeSesin);
 		
-		cbxSeguridad = new JComboBox();
+		cbxSeguridad = new JComboBox<String>();
 		cbxSeguridad.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		cbxSeguridad.setBackground(new Color(245, 255, 250));
 		cbxSeguridad.setModel(new DefaultComboBoxModel(new String[] {"No cumple con alguna caracter\u00EDstica.", "Cumple con 1 caracter\u00EDstica.", "Cumple con 2 caracter\u00EDsticas."}));
@@ -428,7 +427,7 @@ public class VentanaTest {
 		lblqueGradoDe.setBounds(560, 103, 427, 20);
 		panelUno.add(lblqueGradoDe);
 		
-		cbxExactitud = new JComboBox();
+		cbxExactitud = new JComboBox<String>();
 		cbxExactitud.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		cbxExactitud.setBackground(new Color(245, 255, 250));
 		cbxExactitud.setModel(new DefaultComboBoxModel(new String[] {"10-3 o Superior", "Entre 10-4 y 10-6", "10-7 o Inferior"}));
@@ -465,7 +464,7 @@ public class VentanaTest {
 		lblOMuestraPor.setBounds(15, 414, 457, 20);
 		panelUno.add(lblOMuestraPor);
 		
-		cbxToleranciaFallos = new JComboBox();
+		cbxToleranciaFallos = new JComboBox<String>();
 		cbxToleranciaFallos.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		cbxToleranciaFallos.setBackground(new Color(245, 255, 250));
 		cbxToleranciaFallos.setModel(new DefaultComboBoxModel(new String[] {"No cumple con ninguna caracter\u00EDstica ", "Cumple con una caracter\u00EDstica", "Cumple con dos caracter\u00EDsticas", "Cumple con las tres caracter\u00EDsticas"}));
@@ -586,7 +585,7 @@ public class VentanaTest {
 		lblreanudaSusActividades.setBounds(560, 387, 427, 20);
 		panelUno.add(lblreanudaSusActividades);
 		
-		cbxRecuperacion = new JComboBox();
+		cbxRecuperacion = new JComboBox<String>();
 		cbxRecuperacion.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		cbxRecuperacion.setBackground(new Color(245, 255, 250));
 		cbxRecuperacion.setModel(new DefaultComboBoxModel(new String[] {"No cumple con ninguna caracter\u00EDstica", "Cumple con una o dos caracter\u00EDsticas", "Cumple con las tres caracter\u00EDsticas"}));
