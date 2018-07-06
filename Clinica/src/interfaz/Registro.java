@@ -36,11 +36,11 @@ public class Registro extends JFrame {
 	private UsuarioRepository usuarioRepo;
 	private JButton btnCancelar;
 	private Usuario usuario;
-	private MenuPrincipal menu;
+	private MenuPrincipal menuPrincipal;
 	protected int limiteTexto = 12;
 
 	public Registro(MenuPrincipal menu) {
-		this.menu = menu;
+		this.menuPrincipal = menu;
 		usuario = new Usuario();
 		usuarioRepo = new UsuarioRepository();
 
@@ -70,7 +70,7 @@ public class Registro extends JFrame {
 		frmRegistro.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				menu.setVisible(true);
+				menuPrincipal.setVisible(true);
 				frmRegistro.dispose();
 			}
 		});
